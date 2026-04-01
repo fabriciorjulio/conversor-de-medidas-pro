@@ -1,0 +1,49 @@
+name: Build & Publish — Conversor de Medidas Pro
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_name:
+        description: 'Android package name'
+        required: true
+        default: 'com.appfactory.conversor_de_medidas_pro'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.0'
+          channel: 'stable'
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run tests
+        run: flutter test
+
+      - name: Build App Bundle
+        run: |
+          flutter build appbundle --release \
+            --dart-define=ADMOB_APP_ID=${{ secrets.ADMOB_APP_ID }}
+
+      - name: Sign App Bundle
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: build/app/outputs/bundle/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload to Play Store (Internal Track)
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJsonPlainText: ${{ secrets.PLAY_STORE_JSON_KEY }}
+          packageName: com.appfactory.conversor_de_medidas_pro
+          releaseFiles: build/app/outputs/bundle/release/*.aab
+          track: internal
+          status: completed
