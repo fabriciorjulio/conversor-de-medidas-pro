@@ -1,4 +1,4 @@
-name: Build & Publish — Conversor de Medidas Pro
+name: Build & Publish — Converte Tudo
 
 on:
   workflow_dispatch:

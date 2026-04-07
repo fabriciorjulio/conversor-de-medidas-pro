@@ -1,45 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import '../models/conversion.dart';
+import '../../../core/constants/units.dart';
 
-enum MeasurementCategory { comprimento, peso, volume, temperatura }
-
-class ConversionResult {
-  final String fromValue;
-  final String fromUnit;
-  final String toValue;
-  final String toUnit;
-  final MeasurementCategory category;
-  final DateTime timestamp;
-
-  const ConversionResult({
-    required this.fromValue,
-    required this.fromUnit,
-    required this.toValue,
-    required this.toUnit,
-    required this.category,
-    required this.timestamp,
-  });
-
-  Map<String, dynamic> toJson() => {
-        'fromValue': fromValue,
-        'fromUnit': fromUnit,
-        'toValue': toValue,
-        'toUnit': toUnit,
-        'category': category.index,
-        'timestamp': timestamp.millisecondsSinceEpoch,
-      };
-
-  factory ConversionResult.fromJson(Map<String, dynamic> json) =>
-      ConversionResult(
-        fromValue: json['fromValue'],
-        fromUnit: json['fromUnit'],
-        toValue: json['toValue'],
-        toUnit: json['toUnit'],
-        category: MeasurementCategory.values[json['category']],
-        timestamp: DateTime.fromMillisecondsSinceEpoch(json['timestamp']),
-      );
-}
+// Re-export for backward compatibility (tests import from this file)
+export '../models/conversion.dart';
 
 class ConverterProvider extends ChangeNotifier {
   MeasurementCategory _currentCategory = MeasurementCategory.comprimento;
@@ -50,6 +16,10 @@ class ConverterProvider extends ChangeNotifier {
   List<ConversionResult> _history = [];
   int _interactionCount = 0;
 
+  // Live rates: {displayName: factor (units per BRL)}
+  Map<String, double> _currencyOverrides = {};
+  Map<String, double> _cryptoOverrides = {};
+
   static const int _interstitialTriggerCount = 5;
   static const String _historyKey = 'conversion_history';
 
@@ -59,53 +29,45 @@ class ConverterProvider extends ChangeNotifier {
   String get inputValue => _inputValue;
   String get result => _result;
   List<ConversionResult> get history => List.unmodifiable(_history);
-  bool get shouldShowInterstitial => _interactionCount >= _interstitialTriggerCount;
-
-  final Map<MeasurementCategory, Map<String, double>> _conversionFactors = {
-    MeasurementCategory.comprimento: {
-      'metro': 1.0,
-      'centímetro': 100.0,
-      'milímetro': 1000.0,
-      'quilômetro': 0.001,
-      'polegada': 39.3701,
-      'pé': 3.28084,
-    },
-    MeasurementCategory.peso: {
-      'quilograma': 1.0,
-      'grama': 1000.0,
-      'tonelada': 0.001,
-      'libra': 2.20462,
-      'onça': 35.274,
-    },
-    MeasurementCategory.volume: {
-      'litro': 1.0,
-      'mililitro': 1000.0,
-      'metro cúbico': 0.001,
-      'galão': 0.264172,
-      'pinta': 2.11338,
-    },
-    MeasurementCategory.temperatura: {
-      'celsius': 1.0,
-      'fahrenheit': 1.0,
-      'kelvin': 1.0,
-    },
-  };
+  bool get shouldShowInterstitial =>
+      _interactionCount >= _interstitialTriggerCount;
 
   ConverterProvider() {
     _loadHistory();
   }
 
+  void updateCurrencyRates(Map<String, double> rates) {
+    _currencyOverrides = Map.from(rates);
+    if (_currentCategory == MeasurementCategory.moedas) _performConversion();
+    notifyListeners();
+  }
+
+  void updateCryptoRates(Map<String, double> rates) {
+    _cryptoOverrides = Map.from(rates);
+    if (_currentCategory == MeasurementCategory.cripto) _performConversion();
+    notifyListeners();
+  }
+
+  Map<String, double> _getFactors(MeasurementCategory category) {
+    if (category == MeasurementCategory.moedas &&
+        _currencyOverrides.isNotEmpty) {
+      return {...kConversionFactors[category]!, ..._currencyOverrides};
+    }
+    if (category == MeasurementCategory.cripto && _cryptoOverrides.isNotEmpty) {
+      return {...kConversionFactors[category]!, ..._cryptoOverrides};
+    }
+    return kConversionFactors[category]!;
+  }
+
   List<String> getUnitsForCategory(MeasurementCategory category) {
-    return _conversionFactors[category]?.keys.toList() ?? [];
+    return _getFactors(category).keys.toList();
   }
 
   void setCategory(MeasurementCategory category) {
     _currentCategory = category;
-    final units = getUnitsForCategory(category);
-    if (units.isNotEmpty) {
-      _fromUnit = units.first;
-      _toUnit = units.length > 1 ? units[1] : units.first;
-    }
+    final defaults = kCategoryDefaults[category]!;
+    _fromUnit = defaults[0];
+    _toUnit = defaults[1];
     _inputValue = '';
     _result = '';
     notifyListeners();
@@ -124,10 +86,29 @@ class ConverterProvider extends ChangeNotifier {
   }
 
   void setInputValue(String value) {
-    _inputValue = value;
+    // Accept comma as decimal separator (Brazilian standard)
+    _inputValue = value.replaceAll(',', '.');
     _performConversion();
     _incrementInteractionCount();
     notifyListeners();
+  }
+
+  void swapUnits() {
+    final tempUnit = _fromUnit;
+    _fromUnit = _toUnit;
+    _toUnit = tempUnit;
+
+    // Swap values too: result becomes new input
+    if (_result.isNotEmpty && _result != 'Valor inválido') {
+      _inputValue = _result;
+    }
+    _performConversion();
+    notifyListeners();
+  }
+
+  String shareResult() {
+    if (_result.isEmpty || _result == 'Valor inválido') return '';
+    return '$_inputValue $_fromUnit = $_result $_toUnit (Converte Tudo)';
   }
 
   void _performConversion() {
@@ -142,14 +123,27 @@ class ConverterProvider extends ChangeNotifier {
       return;
     }
 
+    double convertedValue;
     if (_currentCategory == MeasurementCategory.temperatura) {
-      _result = _convertTemperature(inputDouble, _fromUnit, _toUnit).toStringAsFixed(2);
+      convertedValue =
+          _convertTemperature(inputDouble, _fromUnit, _toUnit);
     } else {
-      final factors = _conversionFactors[_currentCategory]!;
+      final factors = _getFactors(_currentCategory);
       final fromFactor = factors[_fromUnit]!;
       final toFactor = factors[_toUnit]!;
       final baseValue = inputDouble / fromFactor;
-      final convertedValue = baseValue * toFactor;
+      convertedValue = baseValue * toFactor;
+    }
+
+    // Format result with appropriate precision
+    final abs = convertedValue.abs();
+    if (abs > 1e12 || (abs < 1e-6 && abs > 0)) {
+      _result = convertedValue.toStringAsExponential(4);
+    } else if (abs < 0.01 && abs > 0) {
+      _result = convertedValue.toStringAsFixed(8);
+    } else if (abs < 1 && abs > 0) {
+      _result = convertedValue.toStringAsFixed(4);
+    } else {
       _result = convertedValue.toStringAsFixed(2);
     }
 
@@ -194,6 +188,20 @@ class ConverterProvider extends ChangeNotifier {
     _persistHistory();
   }
 
+  void removeHistoryAt(int index) {
+    if (index >= 0 && index < _history.length) {
+      _history.removeAt(index);
+      _persistHistory();
+      notifyListeners();
+    }
+  }
+
+  void clearHistory() {
+    _history.clear();
+    _persistHistory();
+    notifyListeners();
+  }
+
   void _incrementInteractionCount() {
     _interactionCount++;
   }
@@ -208,9 +216,9 @@ class ConverterProvider extends ChangeNotifier {
       final historyJson = prefs.getString(_historyKey);
       if (historyJson != null) {
         final List<dynamic> historyList = json.decode(historyJson);
-        _history = historyList
-            .map((item) => ConversionResult.fromJson(item))
-            .toList();
+        _history =
+            historyList.map((item) => ConversionResult.fromJson(item)).toList();
+        notifyListeners();
       }
     } catch (e) {
       debugPrint('Erro ao carregar histórico: $e');
@@ -220,16 +228,11 @@ class ConverterProvider extends ChangeNotifier {
   Future<void> _persistHistory() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final historyJson = json.encode(_history.map((e) => e.toJson()).toList());
+      final historyJson =
+          json.encode(_history.map((e) => e.toJson()).toList());
       await prefs.setString(_historyKey, historyJson);
     } catch (e) {
       debugPrint('Erro ao salvar histórico: $e');
     }
-  }
-
-  void clearHistory() {
-    _history.clear();
-    _persistHistory();
-    notifyListeners();
   }
 }
