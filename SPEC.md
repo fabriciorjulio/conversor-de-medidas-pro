@@ -1,5 +1,5 @@
 # Converte Tudo
-### Documento de Especificacao Tecnica e Funcional — v1.2
+### Documento de Especificacao Tecnica e Funcional — v1.3
 **Data:** 07/04/2026
 **Repositorio:** `fabriciorjulio/conversor-de-medidas-pro`
 **Score da avaliacao AppFactory.AI:** 81/100 — Aprovado
@@ -40,7 +40,7 @@
 | **Modelo de negocio** | Freemium — monetizacao via AdMob banner |
 | **Publico-alvo** | Brasileiro em geral — estudantes, profissionais de obra, investidores iniciantes, trabalhadores |
 | **Proposta de valor** | App all-in-one de conversao de unidades + calculadoras financeiras BR com legislacao correta, 100% offline |
-| **Codebase** | 18 arquivos Dart, 4.428 linhas |
+| **Codebase** | 19 arquivos Dart, 4.791 linhas |
 | **Versao** | 1.0.0+1 |
 
 ---
@@ -87,9 +87,27 @@ dev_dependencies:
 
 ## 3. Funcionalidades
 
+### 3.0 Tela de Boas-Vindas (Welcome Screen)
+
+Exibida apenas no **primeiro acesso** (flag `welcome_seen` em SharedPreferences).
+
+- Gradiente 4 tons de azul com **particulas flutuantes** animadas (CustomPainter)
+- Logo com animacao **elastic bounce** (800ms)
+- Titulo "Converte Tudo" + subtitulo com **slide + fade** stagger (900ms)
+- 3 **feature pills** com entrada escalonada:
+  - 📏 10 categorias de conversao
+  - 💵 Cotacoes ao vivo — moedas e cripto
+  - 🏦 Calculadoras BR — FGTS · Juros · Poupanca
+- Botao **"Comecar"** com pulse sutil + seta
+- Badge **"Funciona 100% offline"**
+- Transicao fade (500ms) para a Home Screen
+
+---
+
 ### 3.1 Tela Principal (Home Screen)
 
-- Header com gradiente azul (`#0D47A1` -> `#1976D2`) e badge **"Offline"**
+- **Header redesenhado**: logo mini ⇄, nome, badge "Offline", 3 stat chips (10 medidas, Cotacoes, FGTS·CDI)
+- Gradiente 3 tons (`#0A3D91` -> `#0D47A1` -> `#1976D2`), borderRadius 28
 - Card de **ultima conversao** com acesso rapido — exibido apos o primeiro uso
 - Duas secoes com rotulos:
   - **MEDIDAS** — 8 categorias de conversao
@@ -137,9 +155,9 @@ Temperatura: formulas diretas Celsius <-> Fahrenheit <-> Kelvin.
 
 | Emoji | Categoria | Cor | Unidades |
 |---|---|---|---|
-| 📏 | Comprimento | `#1565C0` | metro, centimetro, milimetro, quilometro, polegada, pe |
-| ⚖️ | Peso | `#2E7D32` | quilograma, grama, miligrama, tonelada, libra |
-| 🫙 | Volume | `#0277BD` | litro, mililitro, metro cubico, centimetro cubico, galao (US) |
+| 📏 | Comprimento | `#1565C0` | metro, centimetro, milimetro, quilometro, polegada, pe, jarda, milha |
+| ⚖️ | Peso | `#2E7D32` | quilograma, grama, miligrama, tonelada, libra, onca (oz), arroba |
+| 🫙 | Volume | `#0277BD` | litro, mililitro, metro cubico, centimetro cubico, galao (US), onca liquida (fl oz), xicara |
 | 🌡️ | Temperatura | `#BF360C` | Celsius, Fahrenheit, Kelvin |
 | 📐 | Area | `#6A1B9A` | metro², centimetro², quilometro², milimetro², pe², polegada², hectare, acre |
 | 💨 | Velocidade | `#00695C` | km/h, m/s, milha por hora, no |
@@ -307,6 +325,11 @@ Familia: **Inter** (Google Fonts). Letter-spacing valores grandes: -0.5.
 
 | Elemento | Tipo | Duracao |
 |---|---|---|
+| Welcome logo | `Tween` scale + opacity, `Curves.elasticOut` | 800ms |
+| Welcome features | Stagger `SlideTransition` + `FadeTransition` | 900ms |
+| Welcome CTA | Pulse `AnimationController` repeat | 1500ms |
+| Welcome particulas | `CustomPainter` com sin/cos | 6000ms loop |
+| Welcome → Home | `FadeTransition` | 500ms |
 | Resultado conversor | `AnimatedSwitcher` + `SlideTransition` | 250ms |
 | Botao swap | `RotationTransition` | 300ms |
 | Card resultado (calcs) | `AnimatedSize` | 300ms |
@@ -334,6 +357,9 @@ Familia: **Inter** (Google Fonts). Letter-spacing valores grandes: -0.5.
 ## 6. Fluxo de Navegacao
 
 ```
+WelcomeScreen               <- primeiro acesso (animada, salva flag)
+|
+v
 HomeScreen
 |
 +-- ConverterScreen          <- todas as 10 categorias
@@ -440,11 +466,11 @@ conversor-de-medidas-pro/
 |   +-- ASO.md                      <- textos ASO para Play Store e App Store
 |
 +-- lib/
-|   +-- main.dart                   <- init, providers, portrait lock, fetch cotacoes
+|   +-- main.dart                   <- init, providers, portrait lock, fetch cotacoes, welcome check
 |   |
 |   +-- core/
 |   |   +-- ads/ad_manager.dart                    <- gerenciador AdMob (98 linhas)
-|   |   +-- constants/units.dart                   <- fatores de conversao 10 categorias (103 linhas)
+|   |   +-- constants/units.dart                   <- fatores de conversao 10 categorias (112 linhas)
 |   |   +-- services/currency_service.dart         <- cotacoes ao vivo + cache 6h (113 linhas)
 |   |   +-- theme/app_theme.dart                   <- ThemeData Material 3, Inter (116 linhas)
 |   |
@@ -452,7 +478,8 @@ conversor-de-medidas-pro/
 |   |   +-- home/
 |   |   |   +-- models/conversion.dart             <- enum MeasurementCategory + ConversionResult (154 linhas)
 |   |   |   +-- providers/converter_provider.dart   <- estado, motor de calculo, historico (239 linhas)
-|   |   |   +-- screens/home_screen.dart            <- tela principal, 2 secoes (652 linhas)
+|   |   |   +-- screens/welcome_screen.dart         <- tela boas-vindas animada, 1o acesso (419 linhas)
+|   |   |   +-- screens/home_screen.dart            <- tela principal, header + 2 secoes (721 linhas)
 |   |   |
 |   |   +-- converter/
 |   |   |   +-- screens/converter_screen.dart       <- tela de conversao universal (502 linhas)
@@ -492,7 +519,7 @@ conversor-de-medidas-pro/
 +-- SPEC.md                                         <- este documento
 ```
 
-**Total: 18 arquivos Dart, 4.428 linhas de codigo**
+**Total: 19 arquivos Dart, 4.791 linhas de codigo**
 
 ---
 
@@ -543,7 +570,11 @@ Fundo azul escuro, headline "Converte Tudo: Medidas + Financeiro BR", subheadlin
 
 | Entregavel | Status |
 |---|---|
-| 8 categorias de medidas | ✅ |
+| Tela de boas-vindas animada (1o acesso) | ✅ |
+| Header dinamico com stat chips | ✅ |
+| 8 categorias de medidas (c/ unidades BR↔US completas) | ✅ |
+| Unidades americanas: jarda, milha, onca, fl oz, xicara, arroba | ✅ |
+| Defaults BR↔US (metro→pe, kg→libra, litro→galao, km/h→mph) | ✅ |
 | 2 categorias financeiras (moedas + cripto) | ✅ |
 | Cotacoes ao vivo com cache 6h | ✅ |
 | Calculadora de Juros (simples, compostos, CDI) | ✅ |
@@ -598,7 +629,7 @@ Fundo azul escuro, headline "Converte Tudo: Medidas + Financeiro BR", subheadlin
 |---|---|
 | Dark mode | 60%+ dos usuarios Android BR usam dark mode |
 | Separar ConverterProvider em 3 providers | Responsabilidade unica (conversao, historico, cotacoes) |
-| Tooltip de onboarding para calculadoras | Risco de usuario nunca descobrir a secao financeira |
+| Tooltip contextual para calculadoras | Risco de usuario nunca descobrir a secao financeira (welcome screen parcialmente mitiga) |
 | Verificar APK size < 15MB | Font subsetting Inter se necessario |
 | Instrumentar metricas D1, D7, session length | Definir antes: D1 >= 25%, D7 >= 12% |
 
@@ -622,7 +653,7 @@ Fundo azul escuro, headline "Converte Tudo: Medidas + Financeiro BR", subheadlin
 | Notificacao diaria opcional | Cotacao do dolar como trigger de retorno |
 | Simulador IRPF simplificado | Faixas de imposto |
 | Comparador de investimentos | Poupanca vs CDB vs LCI/LCA vs Tesouro Direto |
-| Conversor de receitas | Xicara, colher de sopa, colher de cha, ml |
+| Conversor de receitas expandido | Colher de sopa, colher de cha, copo americano (xicara ja implementada) |
 
 ---
 
