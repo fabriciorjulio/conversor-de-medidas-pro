@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.conversor_de_medidas_pro"
+    namespace = "com.fabriciorjulio.convertetudo"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -20,8 +20,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.conversor_de_medidas_pro"
+        applicationId = "com.fabriciorjulio.convertetudo"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

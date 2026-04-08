@@ -1,4 +1,4 @@
-package com.example.conversor_de_medidas_pro
+package com.fabriciorjulio.convertetudo
 
 import io.flutter.embedding.android.FlutterActivity
 
