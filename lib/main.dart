@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'features/home/screens/home_screen.dart';
+import 'features/home/screens/welcome_screen.dart';
 import 'features/home/providers/converter_provider.dart';
 import 'core/ads/ad_manager.dart';
 import 'core/theme/app_theme.dart';
@@ -22,7 +24,12 @@ void main() async {
       defaultTargetPlatform == TargetPlatform.iOS) {
     await MobileAds.instance.initialize();
   }
-  runApp(const ConverteTudoApp());
+
+  // Check if welcome screen should show
+  final prefs = await SharedPreferences.getInstance();
+  final showWelcome = !(prefs.getBool('welcome_seen') ?? false);
+
+  runApp(ConverteTudoApp(showWelcome: showWelcome));
 }
 
 void _fetchRates(ConverterProvider provider) {
@@ -36,7 +43,8 @@ void _fetchRates(ConverterProvider provider) {
 }
 
 class ConverteTudoApp extends StatelessWidget {
-  const ConverteTudoApp({super.key});
+  final bool showWelcome;
+  const ConverteTudoApp({super.key, required this.showWelcome});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +60,7 @@ class ConverteTudoApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Converte Tudo',
         theme: AppTheme.lightTheme,
-        home: const HomeScreen(),
+        home: showWelcome ? const WelcomeScreen() : const HomeScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );

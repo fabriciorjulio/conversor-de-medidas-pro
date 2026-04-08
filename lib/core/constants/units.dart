@@ -1,6 +1,7 @@
 import '../../features/home/models/conversion.dart';
 
 const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
+  // base: metro
   MeasurementCategory.comprimento: {
     'metro': 1.0,
     'centímetro': 100.0,
@@ -8,26 +9,35 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
     'quilômetro': 0.001,
     'polegada': 39.3701,
     'pé': 3.28084,
+    'jarda': 1.09361,
+    'milha': 0.000621371,
   },
+  // base: quilograma
   MeasurementCategory.peso: {
     'quilograma': 1.0,
     'grama': 1000.0,
     'miligrama': 1000000.0,
     'tonelada': 0.001,
     'libra': 2.20462,
+    'onça': 35.274,
+    'arroba': 0.0666667,
   },
+  // base: litro
   MeasurementCategory.volume: {
     'litro': 1.0,
     'mililitro': 1000.0,
     'metro cúbico': 0.001,
     'centímetro cúbico': 1000.0,
     'galão (US)': 0.264172,
+    'onça líquida (fl oz)': 33.814,
+    'xícara': 4.16667,
   },
   MeasurementCategory.temperatura: {
     'celsius': 1.0,
     'fahrenheit': 1.0,
     'kelvin': 1.0,
   },
+  // base: metro quadrado
   MeasurementCategory.area: {
     'metro quadrado': 1.0,
     'centímetro quadrado': 10000.0,
@@ -89,12 +99,12 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
 };
 
 const Map<MeasurementCategory, List<String>> kCategoryDefaults = {
-  MeasurementCategory.comprimento: ['metro', 'centímetro'],
-  MeasurementCategory.peso: ['quilograma', 'grama'],
-  MeasurementCategory.volume: ['litro', 'mililitro'],
+  MeasurementCategory.comprimento: ['metro', 'pé'],
+  MeasurementCategory.peso: ['quilograma', 'libra'],
+  MeasurementCategory.volume: ['litro', 'galão (US)'],
   MeasurementCategory.temperatura: ['celsius', 'fahrenheit'],
-  MeasurementCategory.area: ['metro quadrado', 'centímetro quadrado'],
-  MeasurementCategory.velocidade: ['quilômetro por hora', 'metro por segundo'],
+  MeasurementCategory.area: ['metro quadrado', 'pé quadrado'],
+  MeasurementCategory.velocidade: ['quilômetro por hora', 'milha por hora'],
   MeasurementCategory.dados: ['gigabyte', 'megabyte'],
   MeasurementCategory.tempo: ['hora', 'minuto'],
   MeasurementCategory.moedas: ['Real (BRL)', 'Dólar (USD)'],

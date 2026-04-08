@@ -41,11 +41,11 @@ extension MeasurementCategoryExtension on MeasurementCategory {
 
   String get unitSamples {
     switch (this) {
-      case MeasurementCategory.comprimento: return 'm · cm · km · pol';
-      case MeasurementCategory.peso:        return 'kg · g · lb · ton';
-      case MeasurementCategory.volume:      return 'L · mL · m³ · gal';
+      case MeasurementCategory.comprimento: return 'm · cm · pé · pol · milha';
+      case MeasurementCategory.peso:        return 'kg · g · lb · oz · arroba';
+      case MeasurementCategory.volume:      return 'L · mL · gal · fl oz · xícara';
       case MeasurementCategory.temperatura: return '°C · °F · K';
-      case MeasurementCategory.area:        return 'm² · cm² · km² · ft²';
+      case MeasurementCategory.area:        return 'm² · ft² · hectare · acre';
       case MeasurementCategory.velocidade:  return 'km/h · mph · m/s · nós';
       case MeasurementCategory.dados:       return 'KB · MB · GB · TB';
       case MeasurementCategory.tempo:       return 'seg · min · h · dias';
