@@ -75,6 +75,18 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
     'mês': 3.858e-7,
     'ano': 3.171e-8,
   },
+  // base: mililitro
+  MeasurementCategory.culinaria: {
+    'mililitro': 1.0,
+    'colher de chá': 0.2,
+    'colher de sopa': 0.0666667,
+    'colher de sobremesa': 0.1,
+    'xícara': 0.00416667,
+    'copo americano': 0.005,
+    'copo (250 mL)': 0.004,
+    'litro': 0.001,
+    'pitada (0.5 mL)': 2.0,
+  },
   // base: BRL — rates updated at runtime by CurrencyService
   MeasurementCategory.moedas: {
     'Real (BRL)': 1.0,
@@ -107,6 +119,7 @@ const Map<MeasurementCategory, List<String>> kCategoryDefaults = {
   MeasurementCategory.velocidade: ['quilômetro por hora', 'milha por hora'],
   MeasurementCategory.dados: ['gigabyte', 'megabyte'],
   MeasurementCategory.tempo: ['hora', 'minuto'],
+  MeasurementCategory.culinaria: ['xícara', 'colher de sopa'],
   MeasurementCategory.moedas: ['Real (BRL)', 'Dólar (USD)'],
   MeasurementCategory.cripto: ['Real (BRL)', 'Bitcoin (BTC)'],
 };

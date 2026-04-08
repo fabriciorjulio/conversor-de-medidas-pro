@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 enum MeasurementCategory {
   // Medidas
   comprimento, peso, volume, temperatura,
-  area, velocidade, dados, tempo,
+  area, velocidade, dados, tempo, culinaria,
   // Financeiro
   moedas, cripto,
 }
@@ -19,6 +19,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return 'Velocidade';
       case MeasurementCategory.dados:       return 'Dados Digitais';
       case MeasurementCategory.tempo:       return 'Tempo';
+      case MeasurementCategory.culinaria:   return 'Culinária';
       case MeasurementCategory.moedas:      return 'Moedas';
       case MeasurementCategory.cripto:      return 'Criptomoedas';
     }
@@ -34,6 +35,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return '💨';
       case MeasurementCategory.dados:       return '💾';
       case MeasurementCategory.tempo:       return '⏱️';
+      case MeasurementCategory.culinaria:   return '🍳';
       case MeasurementCategory.moedas:      return '💵';
       case MeasurementCategory.cripto:      return '₿';
     }
@@ -49,6 +51,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return 'km/h · mph · m/s · nós';
       case MeasurementCategory.dados:       return 'KB · MB · GB · TB';
       case MeasurementCategory.tempo:       return 'seg · min · h · dias';
+      case MeasurementCategory.culinaria:   return 'xícara · colher · copo · mL';
       case MeasurementCategory.moedas:      return 'BRL · USD · EUR · GBP';
       case MeasurementCategory.cripto:      return 'BTC · ETH · BNB · SOL';
     }
@@ -64,6 +67,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return Icons.speed_rounded;
       case MeasurementCategory.dados:       return Icons.storage_rounded;
       case MeasurementCategory.tempo:       return Icons.schedule_rounded;
+      case MeasurementCategory.culinaria:   return Icons.restaurant_rounded;
       case MeasurementCategory.moedas:      return Icons.currency_exchange_rounded;
       case MeasurementCategory.cripto:      return Icons.currency_bitcoin_rounded;
     }
@@ -79,6 +83,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return const Color(0xFF00695C);
       case MeasurementCategory.dados:       return const Color(0xFF283593);
       case MeasurementCategory.tempo:       return const Color(0xFF37474F);
+      case MeasurementCategory.culinaria:   return const Color(0xFF8D6E63);
       case MeasurementCategory.moedas:      return const Color(0xFF1B5E20);
       case MeasurementCategory.cripto:      return const Color(0xFFE65100);
     }
@@ -94,6 +99,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return const Color(0xFFE0F2F1);
       case MeasurementCategory.dados:       return const Color(0xFFE8EAF6);
       case MeasurementCategory.tempo:       return const Color(0xFFECEFF1);
+      case MeasurementCategory.culinaria:   return const Color(0xFFEFEBE9);
       case MeasurementCategory.moedas:      return const Color(0xFFE8F5E9);
       case MeasurementCategory.cripto:      return const Color(0xFFFBE9E7);
     }
@@ -109,6 +115,7 @@ extension MeasurementCategoryExtension on MeasurementCategory {
       case MeasurementCategory.velocidade:  return [const Color(0xFF00695C), const Color(0xFF4DB6AC)];
       case MeasurementCategory.dados:       return [const Color(0xFF283593), const Color(0xFF5C6BC0)];
       case MeasurementCategory.tempo:       return [const Color(0xFF37474F), const Color(0xFF78909C)];
+      case MeasurementCategory.culinaria:   return [const Color(0xFF5D4037), const Color(0xFF8D6E63)];
       case MeasurementCategory.moedas:      return [const Color(0xFF1B5E20), const Color(0xFF4CAF50)];
       case MeasurementCategory.cripto:      return [const Color(0xFFE65100), const Color(0xFFFF9800)];
     }
