@@ -315,9 +315,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   List<Widget> _buildFeatures() {
     const features = [
-      _Feature('📏', '10 categorias', 'de conversão'),
-      _Feature('💵', 'Cotações ao vivo', 'moedas e cripto'),
-      _Feature('🏦', 'Calculadoras BR', 'FGTS · Juros · Poupança'),
+      _Feature('📏', '20+ conversores', 'medidas · culinária · tamanhos'),
+      _Feature('🛠️', '5 ferramentas', 'FIPE · Imagens · PDF · Grãos'),
+      _Feature('💵', 'Cotações ao vivo', 'moedas · cripto · FGTS · CDI'),
     ];
 
     return List.generate(features.length, (i) {

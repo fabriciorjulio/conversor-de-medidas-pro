@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'features/home/screens/home_screen.dart';
-import 'features/home/screens/welcome_screen.dart';
+import 'features/home/screens/splash_screen.dart';
 import 'features/home/providers/converter_provider.dart';
 import 'core/ads/ad_manager.dart';
 import 'core/theme/app_theme.dart';
@@ -14,7 +12,6 @@ import 'core/services/currency_service.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Lock orientation to portrait
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -25,11 +22,7 @@ void main() async {
     await MobileAds.instance.initialize();
   }
 
-  // Check if welcome screen should show
-  final prefs = await SharedPreferences.getInstance();
-  final showWelcome = !(prefs.getBool('welcome_seen') ?? false);
-
-  runApp(ConverteTudoApp(showWelcome: showWelcome));
+  runApp(const ConverteTudoApp());
 }
 
 void _fetchRates(ConverterProvider provider) {
@@ -43,8 +36,7 @@ void _fetchRates(ConverterProvider provider) {
 }
 
 class ConverteTudoApp extends StatelessWidget {
-  final bool showWelcome;
-  const ConverteTudoApp({super.key, required this.showWelcome});
+  const ConverteTudoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +52,7 @@ class ConverteTudoApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Converte Tudo',
         theme: AppTheme.lightTheme,
-        home: showWelcome ? const WelcomeScreen() : const HomeScreen(),
+        home: const SplashScreen(),
         debugShowCheckedModeBanner: false,
       ),
     );

@@ -129,8 +129,12 @@ class ConverterProvider extends ChangeNotifier {
           _convertTemperature(inputDouble, _fromUnit, _toUnit);
     } else {
       final factors = _getFactors(_currentCategory);
-      final fromFactor = factors[_fromUnit]!;
-      final toFactor = factors[_toUnit]!;
+      final fromFactor = factors[_fromUnit];
+      final toFactor = factors[_toUnit];
+      if (fromFactor == null || toFactor == null || fromFactor == 0) {
+        _result = 'Unidade indisponível';
+        return;
+      }
       final baseValue = inputDouble / fromFactor;
       convertedValue = baseValue * toFactor;
     }

@@ -28,6 +28,7 @@ class _JurosScreenState extends State<JurosScreen> {
   double? _juros;
   double? _taxaEfetivaAnual;
   double? _principal;
+  String? _overflowMsg;
 
   @override
   void dispose() {
@@ -68,8 +69,13 @@ class _JurosScreenState extends State<JurosScreen> {
 
     // Overflow protection
     if (p > 1e15 || t > 1200) {
-      setState(() => _montante = null);
+      setState(() {
+        _montante = null;
+        _overflowMsg = 'Valor ou período muito grande. Reduza para calcular.';
+      });
       return;
+    } else {
+      _overflowMsg = null;
     }
 
     final r = _monthlyRate();
@@ -295,7 +301,39 @@ class _JurosScreenState extends State<JurosScreen> {
                               color: _color,
                             ),
                           )
-                        : const SizedBox.shrink(),
+                        : _overflowMsg != null
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 14),
+                                child: Container(
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.shade50,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                        color: Colors.red.shade200, width: 1),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.warning_amber_rounded,
+                                          color: Colors.red[700], size: 20),
+                                      const SizedBox(width: 10),
+                                      Expanded(
+                                        child: Text(
+                                          _overflowMsg!,
+                                          style: TextStyle(
+                                            color: Colors.red[700],
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : const SizedBox.shrink(),
                   ),
 
                   const SizedBox(height: 14),
