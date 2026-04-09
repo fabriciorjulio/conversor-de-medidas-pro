@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../providers/converter_provider.dart';
+import '../../../core/providers/theme_provider.dart';
 import '../../converter/screens/converter_screen.dart';
 import '../../history/screens/history_screen.dart';
 import '../../financial/screens/juros_screen.dart';
@@ -246,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           // ── FERRAMENTAS ────────────────────────────────
           if (fTools.isNotEmpty) ...[
-            _SectionHeader(label: 'FERRAMENTAS', badge: 'NOVO'),
+            _SectionHeader(label: 'FERRAMENTAS'),
             SliverPadding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               sliver: SliverToBoxAdapter(
@@ -526,6 +528,71 @@ class _ToolRow extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────
+// Header menu (theme toggle + logout)
+// ─────────────────────────────────────────────────────────────────
+class _HeaderMenu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert_rounded, color: Colors.white, size: 24),
+      onSelected: (value) {
+        if (value == 'theme') {
+          context.read<ThemeProvider>().toggleTheme();
+        } else if (value == 'exit') {
+          showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: const Text('Sair do app?'),
+              content: const Text('Tem certeza que deseja sair?'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancelar'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    SystemNavigator.pop();
+                  },
+                  child: const Text('Sair', style: TextStyle(color: Colors.red)),
+                ),
+              ],
+            ),
+          );
+        }
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+        PopupMenuItem<String>(
+          value: 'theme',
+          child: Row(
+            children: [
+              Icon(
+                context.watch<ThemeProvider>().isDarkMode
+                    ? Icons.light_mode_rounded
+                    : Icons.dark_mode_rounded,
+                size: 20,
+              ),
+              const SizedBox(width: 12),
+              Text(context.watch<ThemeProvider>().isDarkMode ? 'Modo claro' : 'Modo escuro'),
+            ],
+          ),
+        ),
+        PopupMenuItem<String>(
+          value: 'exit',
+          child: Row(
+            children: const [
+              Icon(Icons.logout_rounded, size: 20, color: Colors.red),
+              SizedBox(width: 12),
+              Text('Sair', style: TextStyle(color: Colors.red)),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────
 // Header
 // ─────────────────────────────────────────────────────────────────
 class _Header extends StatelessWidget {
@@ -581,6 +648,8 @@ class _Header extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(width: 8),
+                  _HeaderMenu(),
                 ],
               ),
               const SizedBox(height: 16),

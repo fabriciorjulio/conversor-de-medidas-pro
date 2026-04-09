@@ -8,6 +8,7 @@ import 'features/home/providers/converter_provider.dart';
 import 'core/ads/ad_manager.dart';
 import 'core/theme/app_theme.dart';
 import 'core/services/currency_service.dart';
+import 'core/providers/theme_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,13 +48,18 @@ class ConverteTudoApp extends StatelessWidget {
           _fetchRates(provider);
           return provider;
         }),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
         Provider<AdManager>(create: (_) => AdManager()),
       ],
-      child: MaterialApp(
-        title: 'Converte Tudo',
-        theme: AppTheme.lightTheme,
-        home: const SplashScreen(),
-        debugShowCheckedModeBanner: false,
+      child: Consumer<ThemeProvider>(
+        builder: (ctx, themeProvider, _) => MaterialApp(
+          title: 'Converte Tudo',
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+          home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
+        ),
       ),
     );
   }
