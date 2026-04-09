@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade - Converte Tudo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+
+        /* Dark mode */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #1a1a1a;
+                color: #e0e0e0;
+            }
+            .container {
+                background-color: #242424;
+            }
+            a {
+                color: #64b5f6;
+            }
+            a:visited {
+                color: #ba68c8;
+            }
+            h1, h2, h3 {
+                color: #fff;
+            }
+            code {
+                background-color: #333;
+                color: #81c784;
+            }
+            .highlight {
+                background-color: #333;
+            }
+            hr {
+                border-color: #444;
+            }
+            .header {
+                background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+                border-bottom-color: #444;
+            }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0D47A1 0%, #1976D2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid #0D47A1;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background-color: white;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #0D47A1;
+            margin: 30px 0 15px 0;
+            font-size: 1.8em;
+            border-bottom: 3px solid #42A5F5;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #1565C0;
+            margin: 25px 0 12px 0;
+            font-size: 1.4em;
+        }
+
+        h3 {
+            color: #1976D2;
+            margin: 18px 0 10px 0;
+            font-size: 1.1em;
+        }
+
+        p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        a {
+            color: #0D47A1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #1565C0;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #7B1FA2;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 15px;
+            border-left: 4px solid #fbc02d;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .highlight {
+                background-color: #4d4d0f;
+                border-left-color: #fbc02d;
+            }
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border-left: 4px solid #42A5F5;
+            background-color: #f8f9fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .section {
+                background-color: #2a2a2a;
+                border-left-color: #64b5f6;
+            }
+        }
+
+        .emoji {
+            font-size: 1.3em;
+            margin-right: 8px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .footer {
+                border-top-color: #444;
+                color: #aaa;
+            }
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #0D47A1;
+            color: white;
+            font-weight: 600;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            th, td {
+                border-color: #444;
+            }
+            th {
+                background-color: #1565C0;
+            }
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            tr:nth-child(even) {
+                background-color: #333;
+            }
+        }
+
+        .toc {
+            background-color: #f0f7ff;
+            border: 1px solid #90caf9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .toc {
+                background-color: #1a2a3a;
+                border-color: #1565c0;
+            }
+        }
+
+        .toc h3 {
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            margin: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #0D47A1;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            .container {
+                padding: 20px 10px;
+            }
+        }
+
+        .back-to-top {
+            display: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #0D47A1;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50%;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .back-to-top.show {
+            opacity: 0.8;
+        }
+
+        .back-to-top:hover {
+            opacity: 1;
+            background-color: #1565C0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔐 Converte Tudo</h1>
+        <p>Política de Privacidade</p>
+    </div>
+
+    <div class="container">
+        <!-- Índice -->
+        <div class="toc">
+            <h3>📑 Índice</h3>
+            <ul>
+                <li><a href="#introducao">1. Introdução</a></li>
+                <li><a href="#dados">2. Dados Que Coletamos</a></li>
+                <li><a href="#uso">3. Como Usamos Seus Dados</a></li>
+                <li><a href="#cookies">4. Cookies e Rastreamento</a></li>
+                <li><a href="#publicidade">5. Publicidade</a></li>
+                <li><a href="#compartilhamento">6. Compartilhamento de Dados</a></li>
+                <li><a href="#seguranca">7. Segurança</a></li>
+                <li><a href="#direitos">8. Seus Direitos</a></li>
+                <li><a href="#retencao">9. Retenção de Dados</a></li>
+                <li><a href="#menores">10. Menores de Idade</a></li>
+                <li><a href="#alteracoes">11. Alterações Nesta Política</a></li>
+                <li><a href="#contato">12. Contato</a></li>
+            </ul>
+        </div>
+
+        <h1 id="introducao"><span class="emoji">👋</span>1. Introdução</h1>
+        <p>
+            Bem-vindo ao <strong>Converte Tudo</strong> ("App"). Esta Política de Privacidade descreve como
+            coletamos, usamos e compartilhamos suas informações quando você usa nosso aplicativo móvel.
+        </p>
+        <p>
+            Por favor, leia esta política cuidadosamente. Se você não concordar com nossas práticas,
+            não use este aplicativo.
+        </p>
+        <p><strong>Última atualização: 9 de abril de 2026</strong></p>
+
+        <h1 id="dados"><span class="emoji">📊</span>2. Dados Que Coletamos</h1>
+
+        <h2>2.1 Nenhum Dado Pessoal <span class="badge">✓</span></h2>
+        <div class="highlight">
+            <strong>Converte Tudo NÃO coleta dados pessoais</strong> como:
+        </div>
+        <ul>
+            <li>Nome</li>
+            <li>Email</li>
+            <li>Telefone</li>
+            <li>Endereço</li>
+            <li>Informações bancárias</li>
+            <li>Localização</li>
+        </ul>
+
+        <h2>2.2 Dados Locais</h2>
+        <p>
+            Coletamos apenas dados que ficam <strong>100% armazenados NO SEU DISPOSITIVO</strong>:
+        </p>
+        <ul>
+            <li><strong>Histórico de conversões:</strong> últimas 10 conversões realizadas</li>
+            <li><strong>Preferência de tema:</strong> se você prefere modo claro ou escuro</li>
+            <li><strong>Dados de uso:</strong> quantos cálculos você fez (não é enviado)</li>
+        </ul>
+        <p>
+            Esses dados são armazenados localmente via <code>SharedPreferences</code> e
+            <strong>nunca</strong> são enviados para servidores externos.
+        </p>
+
+        <h2>2.3 Permissões Solicitadas</h2>
+        <ul>
+            <li><strong>Storage (Leitura/Escrita):</strong> apenas para salvar arquivos gerados (PDFs, imagens convertidas)</li>
+            <li><strong>Internet:</strong> apenas para cotações ao vivo de moedas e criptomoedas</li>
+        </ul>
+
+        <h1 id="uso"><span class="emoji">🎯</span>3. Como Usamos Seus Dados</h1>
+        <p>Usamos dados apenas para:</p>
+        <ol>
+            <li>Manter histórico de suas conversões (armazenado localmente)</li>
+            <li>Permitir salvar e compartilhar resultados</li>
+            <li>Melhorar a experiência do usuário (interface, performance)</li>
+            <li>Fornecer cotações ao vivo (moedas, criptomoedas)</li>
+        </ol>
+
+        <h1 id="cookies"><span class="emoji">🍪</span>4. Cookies e Rastreamento</h1>
+        <div class="highlight">
+            <strong>Converte Tudo NÃO usa:</strong>
+        </div>
+        <ul>
+            <li>Cookies</li>
+            <li>Rastreamento de usuário</li>
+            <li>Analytics pessoal</li>
+            <li>Fingerprinting do dispositivo</li>
+            <li>Identificadores únicos de publicidade</li>
+        </ul>
+
+        <h1 id="publicidade"><span class="emoji">📢</span>5. Publicidade</h1>
+        <p>
+            Nosso aplicativo exibe anúncios via <strong>Google AdMob</strong> para manter a app gratuita.
+        </p>
+
+        <h3>Dados de publicidade:</h3>
+        <ul>
+            <li>Google AdMob pode coletar identificador de publicidade anônimo</li>
+            <li>Google AdMob segue sua própria <a href="https://policies.google.com/privacy" target="_blank">política de privacidade</a></li>
+            <li>Você pode desativar rastreamento de publicidade em <code>Configurações → Google → Anúncios</code></li>
+        </ul>
+
+        <h1 id="compartilhamento"><span class="emoji">🔗</span>6. Compartilhamento de Dados</h1>
+        <div class="highlight">
+            <strong>Converte Tudo NÃO compartilha seus dados</strong> com terceiros, exceto:
+        </div>
+
+        <h2>6.1 Google Mobile Ads</h2>
+        <ul>
+            <li>Para exibir publicidades</li>
+            <li>Google segue sua própria política</li>
+        </ul>
+
+        <h2>6.2 Compartilhamento Manual</h2>
+        <ul>
+            <li>Se você clicar "Compartilhar", nós compartilhamos apenas o resultado selecionado</li>
+            <li>Você controla o que é compartilhado</li>
+        </ul>
+
+        <h1 id="seguranca"><span class="emoji">🔒</span>7. Segurança</h1>
+        <p>Protegemos dados locais através de:</p>
+        <ul>
+            <li><strong>Armazenamento seguro:</strong> SharedPreferences com criptografia nativa do SO</li>
+            <li><strong>Sem transmissão:</strong> dados nunca deixam seu dispositivo</li>
+            <li><strong>Sem logins:</strong> sem senha necessária</li>
+        </ul>
+
+        <h1 id="direitos"><span class="emoji">⚖️</span>8. Seus Direitos</h1>
+        <p>Você tem o direito de:</p>
+        <ul>
+            <li><strong>Acessar:</strong> seus dados estão visíveis no app (histórico)</li>
+            <li><strong>Deletar:</strong> limpe dados em <code>Configurações do Android → Apps → Converte Tudo → Armazenamento → Limpar dados</code></li>
+            <li><strong>Exportar:</strong> nós não temos seus dados, estão 100% em seu telefone</li>
+        </ul>
+
+        <h1 id="retencao"><span class="emoji">⏰</span>9. Retenção de Dados</h1>
+        <ul>
+            <li><strong>Histórico:</strong> mantido enquanto você não limpar (limite de 10 itens)</li>
+            <li><strong>Preferências:</strong> mantidas até você resetar o app</li>
+            <li><strong>Ao desinstalar:</strong> todos os dados são automaticamente removidos do dispositivo</li>
+        </ul>
+
+        <h1 id="menores"><span class="emoji">👶</span>10. Menores de Idade</h1>
+        <ul>
+            <li>Converte Tudo é adequado para todas as idades (3+)</li>
+            <li>Não coletamos dados de menores</li>
+            <li>Pais podem monitorar uso através de controles parentais do Android</li>
+        </ul>
+
+        <h1 id="alteracoes"><span class="emoji">📝</span>11. Alterações Nesta Política</h1>
+        <p>Podemos atualizar esta política ocasionalmente. Você será notificado de mudanças significativas através de:</p>
+        <ul>
+            <li>Atualização do app na Play Store</li>
+            <li>Notificação in-app (quando aplicável)</li>
+        </ul>
+
+        <h1 id="contato"><span class="emoji">📧</span>12. Contato</h1>
+        <p>Se você tiver dúvidas sobre esta Política de Privacidade:</p>
+
+        <div class="section">
+            <strong>Email:</strong> <a href="mailto:fabriciorjulio@gmail.com">fabriciorjulio@gmail.com</a><br>
+            <strong>Website:</strong> <a href="https://github.com/fabriciorjulio/conversor-de-medidas-pro" target="_blank">github.com/fabriciorjulio</a>
+        </div>
+
+        <h1><span class="emoji">✅</span>Conformidade</h1>
+        <ul>
+            <li>✅ LGPD (Lei Geral de Proteção de Dados - Brasil)</li>
+            <li>✅ GDPR (Regulamento Geral de Proteção de Dados - UE)</li>
+            <li>✅ CCPA (California Consumer Privacy Act - EUA)</li>
+            <li>✅ Google Play Store Policies</li>
+        </ul>
+
+        <div class="highlight">
+            <strong>📌 Você controla seus dados. Nós não temos acesso a eles.</strong><br>
+            Converte Tudo foi desenvolvido com privacidade em primeiro lugar.
+        </div>
+
+        <div class="footer">
+            <p><strong>Converte Tudo</strong> © 2026 - Desenvolvido com ❤️ para o Brasil</p>
+            <p>Última atualização: 9 de abril de 2026</p>
+        </div>
+    </div>
+
+    <a href="#" class="back-to-top" id="backToTop">↑</a>
+
+    <script>
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+</html>
