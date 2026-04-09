@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image/image.dart' as img;
-import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
+import '../../../core/utils/file_saver.dart';
 
 class ImageConverterScreen extends StatefulWidget {
   const ImageConverterScreen({super.key});
@@ -96,12 +94,9 @@ class _ImageConverterScreenState extends State<ImageConverterScreen> {
 
   Future<void> _share() async {
     if (_convertedBytes == null) return;
-    final dir = await getTemporaryDirectory();
     final baseName = _sourceName?.split('.').first ?? 'imagem';
     final ext = _outputFormat.toLowerCase();
-    final path = '${dir.path}/${baseName}_convertido.$ext';
-    await File(path).writeAsBytes(_convertedBytes!);
-    await Share.shareXFiles([XFile(path)], text: 'Convertido com Converte Tudo');
+    await saveAndShareFile(_convertedBytes!, '${baseName}_convertido.$ext', 'Convertido com Converte Tudo');
   }
 
   @override

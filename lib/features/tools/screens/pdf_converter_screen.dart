@@ -1,14 +1,12 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:archive/archive.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:share_plus/share_plus.dart';
 import 'package:xml/xml.dart';
+import '../../../core/utils/file_saver.dart';
 
 class PdfConverterScreen extends StatefulWidget {
   const PdfConverterScreen({super.key});
@@ -26,7 +24,7 @@ class _PdfConverterScreenState extends State<PdfConverterScreen> {
   Uint8List? _fileBytes;
   bool _loading = false;
   bool _done = false;
-  String? _outputPath;
+  Uint8List? _pdfBytes;
 
   @override
   void dispose() {
@@ -118,13 +116,7 @@ class _PdfConverterScreenState extends State<PdfConverterScreen> {
       }
 
       final bytes = await pdf.save();
-      final dir = await getTemporaryDirectory();
-      final baseName = _mode == 0
-          ? 'texto_convertido'
-          : (_fileName?.split('.').first ?? 'arquivo');
-      final path = '${dir.path}/$baseName.pdf';
-      await File(path).writeAsBytes(bytes);
-      setState(() { _outputPath = path; _done = true; });
+      setState(() { _pdfBytes = Uint8List.fromList(bytes); _done = true; });
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Erro: $e')));
     } finally {
@@ -133,8 +125,11 @@ class _PdfConverterScreenState extends State<PdfConverterScreen> {
   }
 
   Future<void> _share() async {
-    if (_outputPath == null) return;
-    await Share.shareXFiles([XFile(_outputPath!)], text: 'PDF gerado com Converte Tudo');
+    if (_pdfBytes == null) return;
+    final baseName = _mode == 0
+        ? 'texto_convertido'
+        : (_fileName?.split('.').first ?? 'arquivo');
+    await saveAndShareFile(_pdfBytes!, '$baseName.pdf', 'PDF gerado com Converte Tudo');
   }
 
   @override
