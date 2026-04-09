@@ -19,7 +19,7 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
     'miligrama': 1000000.0,
     'tonelada': 0.001,
     'libra': 2.20462,
-    'onça': 35.274,
+    'onça': 35.274,  // onça avoirdupois = 28.3495g, mas aqui é em kg
     'arroba': 0.0666667,
   },
   // base: litro
@@ -28,6 +28,7 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
     'mililitro': 1000.0,
     'metro cúbico': 0.001,
     'centímetro cúbico': 1000.0,
+    'galão': 0.264172,
     'galão (US)': 0.264172,
     'onça líquida (fl oz)': 33.814,
     'xícara': 4.16667,
@@ -82,7 +83,7 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
     'colher de sopa': 0.0666667,
     'colher de sobremesa': 0.1,
     'xícara': 0.00416667,
-    'copo americano': 0.005,
+    'copo americano': 0.004167,
     'copo (250 mL)': 0.004,
     'litro': 0.001,
     'pitada (0.5 mL)': 2.0,
