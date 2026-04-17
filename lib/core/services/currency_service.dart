@@ -12,7 +12,7 @@ class CurrencyService {
 
   static const String _cryptoUrl =
       'https://economia.awesomeapi.com.br/json/last/'
-      'BTC-BRL,ETH-BRL,BNB-BRL,SOL-BRL,XRP-BRL,USDT-BRL';
+      'BTC-BRL,ETH-BRL,BNB-BRL,SOL-BRL,XRP-BRL,DOGE-BRL,LTC-BRL';
 
   // Maps API code → display name used in kConversionFactors
   static const Map<String, String> _moedaNames = {
@@ -31,7 +31,8 @@ class CurrencyService {
     'BNB': 'BNB',
     'SOL': 'Solana (SOL)',
     'XRP': 'XRP',
-    'USDT': 'USDT',
+    'DOGE': 'Dogecoin (DOGE)',
+    'LTC': 'Litecoin (LTC)',
   };
 
   /// Returns {displayName: factor} where factor = 1/bidPrice (units per BRL).

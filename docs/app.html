@@ -713,16 +713,23 @@ function renderCurrencyUI(rates){
 }
 
 /* ===== CRIPTO ===== */
-const CRYPTOS = ['BTC','ETH','USDT','BNB','SOL','XRP','ADA','DOGE'];
+const CRYPTOS = ['BTC','ETH','BNB','SOL','XRP','DOGE','LTC'];
 async function loadCrypto(){
   const box = document.getElementById('cryptoBox');
   const status = document.getElementById('cryptoStatus');
   try {
-    const url = 'https://economia.awesomeapi.com.br/json/last/' + CRYPTOS.map(c=>c+'-BRL').join(',');
-    const r = await fetch(url);
-    const data = await r.json();
-    const rates = {};
-    CRYPTOS.forEach(c => { const k = c + 'BRL'; if (data[k]) rates[c] = +data[k].bid; });
+    const results = await Promise.all(CRYPTOS.map(async c => {
+      try {
+        const r = await fetch('https://economia.awesomeapi.com.br/json/last/' + c + '-BRL');
+        if (!r.ok) return null;
+        const j = await r.json();
+        const entry = j[c + 'BRL'];
+        const bid = entry && parseFloat(entry.bid);
+        return bid > 0 ? [c, bid] : null;
+      } catch(_) { return null; }
+    }));
+    const rates = Object.fromEntries(results.filter(Boolean));
+    if (Object.keys(rates).length === 0) throw new Error('no rates');
     renderCryptoUI(rates);
     status.className = 'badge green';
     status.innerHTML = '<span class="dot"></span>Ao vivo';

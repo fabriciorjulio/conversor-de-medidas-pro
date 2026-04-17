@@ -102,12 +102,13 @@ const Map<MeasurementCategory, Map<String, double>> kConversionFactors = {
   // base: BRL — rates updated at runtime by CurrencyService
   MeasurementCategory.cripto: {
     'Real (BRL)': 1.0,
-    'USDT': 0.1961,
     'Bitcoin (BTC)': 1.9e-6,
     'Ethereum (ETH)': 3.33e-5,
     'BNB': 7.14e-4,
     'Solana (SOL)': 4.17e-3,
     'XRP': 0.4878,
+    'Dogecoin (DOGE)': 1.2,
+    'Litecoin (LTC)': 0.0036,
   },
 };
 

@@ -53,14 +53,15 @@ CALCULADORAS FINANCEIRAS
 - Simulador de poupanca com regra SELIC
 - Calculo de FGTS (deposito de 8%, TR + 3% ao ano)
 - Conversor de moedas (Real, Dolar, Euro, Libra, Iene e outras)
-- Conversor de criptomoedas (Bitcoin, Ethereum, USDT e outras)
+- Conversor de criptomoedas (Bitcoin, Ethereum, BNB, Solana e outras)
 
 FERRAMENTAS ADICIONAIS
 
 - Consulta FIPE para carros, motos e caminhoes
 - Conversao de texto, imagens e DOCX para PDF
-- Conversao entre formatos de imagem (PNG, JPG, BMP)
-- Conversor de commodities (soja, milho, cafe) em kg e saca
+- Conversao entre formatos de imagem (PNG, JPG, BMP, GIF, TIFF)
+- Conversor de commodities agricolas (soja, milho, trigo, cafe,
+  arroz, algodao, acucar, feijao) em kg e saca
 
 RECURSOS
 
