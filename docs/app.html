@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0D47A1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Converte Tudo">
+<title>Converte Tudo — Web</title>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<link rel="apple-touch-icon" href="icons/Icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg0:#FFFFFF;--bg1:#F7F9FC;--bg2:#EEF3FA;--bg3:#DCE6F3;
+  --t1:#0A1930;--t2:#3B4A66;--t3:#6B7A94;--t4:#A4B0C4;
+  --blu:#0D47A1;--blu2:#1976D2;--blu3:#4F8DEB;--blu-bg:#E3ECFA;
+  --grn:#1B7F4D;--grn-bg:#E1F5EA;
+  --red:#B3261E;--red-bg:#FDECEA;
+  --yel:#B56F00;--yel-bg:#FFF3E0;
+  --brd:#D9E1EC;
+  --shadow:0 4px 14px rgba(13,71,161,.08);
+}
+[data-theme="dark"]{
+  --bg0:#0A1225;--bg1:#0F1A30;--bg2:#16253F;--bg3:#1E2F4D;
+  --t1:#E8EEF7;--t2:#A8B5C9;--t3:#7A8AA5;--t4:#50607B;
+  --blu:#4F8DEB;--blu2:#6BA0F0;--blu3:#8FB8F4;--blu-bg:#1A2847;
+  --grn:#4ADE80;--grn-bg:#143524;
+  --red:#F87171;--red-bg:#3B1715;
+  --yel:#FBBF24;--yel-bg:#3B2B10;
+  --brd:#1E2F4D;
+  --shadow:0 4px 14px rgba(0,0,0,.3);
+}
+html{font-size:14px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg0);color:var(--t1);min-height:100vh;line-height:1.5;transition:background .2s}
+.mono{font-family:'JetBrains Mono',monospace}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select{font-family:inherit}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--brd)}
+[data-theme="dark"] header{background:rgba(10,18,37,.92)}
+header .inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:12px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px;color:var(--t1)}
+.logo .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,var(--blu) 0%,var(--blu2) 100%);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+.hdr-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--brd);background:var(--bg1);display:flex;align-items:center;justify-content:center;font-size:16px;transition:.15s;color:var(--t2)}
+.icon-btn:hover{background:var(--bg2);color:var(--t1)}
+.back-link{color:var(--t2);font-size:13px;font-weight:500;padding:6px 10px;border-radius:8px;transition:.15s}
+.back-link:hover{background:var(--bg1);color:var(--t1)}
+@media (max-width:480px){.back-link{display:none}}
+
+/* TABS */
+.tabs-scroll{border-bottom:1px solid var(--brd);background:var(--bg0);position:sticky;top:61px;z-index:40}
+.tabs{max-width:960px;margin:0 auto;display:flex;gap:4px;padding:0 16px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:14px 16px;font-size:13.5px;font-weight:600;color:var(--t3);white-space:nowrap;border-bottom:2px solid transparent;transition:.15s;display:flex;align-items:center;gap:6px}
+.tab:hover{color:var(--t1)}
+.tab.active{color:var(--blu);border-bottom-color:var(--blu)}
+.tab .em{font-size:14px}
+
+/* CONTAINER */
+main{max-width:960px;margin:0 auto;padding:20px 16px 80px}
+
+/* CARDS */
+.card{background:var(--bg1);border:1px solid var(--brd);border-radius:16px;padding:20px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card h3{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.card p.desc{color:var(--t3);font-size:13px;margin-bottom:14px}
+
+/* FORM CONTROLS */
+.row{display:flex;gap:10px;align-items:flex-end;margin-bottom:12px;flex-wrap:wrap}
+.field{flex:1;min-width:160px}
+label{display:block;color:var(--t3);font-size:12px;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+input[type="number"],input[type="text"],select{width:100%;padding:11px 12px;border:1px solid var(--brd);border-radius:10px;background:var(--bg0);color:var(--t1);font-size:15px;font-weight:500;transition:.15s;font-variant-numeric:tabular-nums}
+input:focus,select:focus{outline:none;border-color:var(--blu2);box-shadow:0 0 0 3px rgba(25,118,210,.12)}
+.btn{padding:12px 20px;border-radius:10px;font-weight:600;font-size:14px;transition:.15s;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.btn-primary{background:var(--blu);color:#fff}
+.btn-primary:hover{background:var(--blu2)}
+.btn-ghost{background:var(--bg2);color:var(--t1);border:1px solid var(--brd)}
+.btn-ghost:hover{border-color:var(--blu2);color:var(--blu)}
+.btn-swap{width:44px;height:44px;border-radius:10px;background:var(--blu-bg);color:var(--blu);display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid var(--blu-bg);align-self:flex-end;margin-bottom:0}
+.btn-swap:hover{background:var(--blu);color:#fff}
+
+/* RESULT */
+.result{background:linear-gradient(135deg,var(--blu-bg) 0%,var(--bg2) 100%);border:1px solid var(--brd);border-radius:12px;padding:18px;margin-top:12px}
+.result .lbl{color:var(--blu);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.result .val{font-size:clamp(22px,4vw,30px);font-weight:800;color:var(--t1);letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.result .unit{color:var(--t2);font-size:14px;margin-left:6px;font-weight:600}
+.result .sub{color:var(--t3);font-size:12.5px;margin-top:4px}
+
+/* STATS GRID */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}
+.stat-item{background:var(--bg0);border:1px solid var(--brd);border-radius:10px;padding:12px 14px}
+.stat-item .l{color:var(--t3);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;margin-bottom:3px}
+.stat-item .v{color:var(--t1);font-size:17px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat-item .v.green{color:var(--grn)}
+.stat-item .v.red{color:var(--red)}
+.stat-item .v.blue{color:var(--blu)}
+
+/* SLIDER */
+.slider-wrap{margin-top:10px}
+.slider-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.slider-hd .v{font-weight:700;color:var(--blu);font-size:15px;font-variant-numeric:tabular-nums}
+input[type="range"]{width:100%;accent-color:var(--blu)}
+.presets{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.preset{padding:6px 12px;border-radius:999px;background:var(--bg2);border:1px solid var(--brd);font-size:12.5px;font-weight:600;color:var(--t2);cursor:pointer;transition:.15s}
+.preset:hover,.preset.active{background:var(--blu);color:#fff;border-color:var(--blu)}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--brd);font-variant-numeric:tabular-nums}
+th{color:var(--t3);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.6px;background:var(--bg2)}
+tbody tr:hover{background:var(--bg2)}
+td:first-child{font-weight:600;color:var(--t1)}
+td.num{color:var(--blu);font-weight:600}
+
+/* PANELS */
+.panel{display:none}
+.panel.active{display:block;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* BADGE */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.badge.green{background:var(--grn-bg);color:var(--grn)}
+.badge.red{background:var(--red-bg);color:var(--red)}
+.badge.blue{background:var(--blu-bg);color:var(--blu)}
+.badge.yel{background:var(--yel-bg);color:var(--yel)}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* NOTE */
+.note{margin-top:14px;padding:12px;background:var(--yel-bg);border-left:3px solid var(--yel);border-radius:8px;color:var(--t2);font-size:12.5px;line-height:1.5}
+.note strong{color:var(--t1)}
+
+/* FOOTER */
+footer{max-width:960px;margin:40px auto 0;padding:20px 20px 40px;border-top:1px solid var(--brd);color:var(--t3);font-size:12.5px;text-align:center}
+footer a{color:var(--blu);font-weight:600}
+
+.loading{display:inline-block;width:14px;height:14px;border:2px solid var(--bg2);border-top-color:var(--blu);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="inner">
+    <a href="index.html" class="logo">
+      <div class="mark">↔</div>
+      <span>Converte Tudo</span>
+    </a>
+    <div class="hdr-actions">
+      <a href="index.html" class="back-link">← Inicio</a>
+      <button class="icon-btn" id="themeToggle" title="Alternar tema">🌙</button>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-scroll">
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-tab="length"><span class="em">↔</span>Comprimento</button>
+    <button class="tab" data-tab="weight"><span class="em">⚖</span>Peso</button>
+    <button class="tab" data-tab="volume"><span class="em">🫙</span>Volume</button>
+    <button class="tab" data-tab="temperature"><span class="em">🌡</span>Temperatura</button>
+    <button class="tab" data-tab="area"><span class="em">▢</span>Area</button>
+    <button class="tab" data-tab="speed"><span class="em">⚡</span>Velocidade</button>
+    <button class="tab" data-tab="time"><span class="em">⏱</span>Tempo</button>
+    <button class="tab" data-tab="data"><span class="em">💾</span>Dados</button>
+    <button class="tab" data-tab="cooking"><span class="em">🍳</span>Culinaria</button>
+    <button class="tab" data-tab="clothing"><span class="em">👕</span>Roupas</button>
+    <button class="tab" data-tab="currency"><span class="em">$</span>Moedas</button>
+    <button class="tab" data-tab="crypto"><span class="em">₿</span>Cripto</button>
+    <button class="tab" data-tab="interest"><span class="em">%</span>Juros</button>
+    <button class="tab" data-tab="savings"><span class="em">🐷</span>Poupanca</button>
+    <button class="tab" data-tab="fgts"><span class="em">🏦</span>FGTS</button>
+  </div>
+</div>
+
+<main>
+
+<!-- COMPRIMENTO / PESO / VOLUME / AREA / VELOCIDADE / TEMPO / DADOS / CULINARIA → uses generic unit converter -->
+<div class="panel active" id="panel-length">
+  <div class="card">
+    <h3>Conversor de comprimento</h3>
+    <p class="desc">Converte entre metro, centimetro, quilometro, polegada, pe, jarda e milha.</p>
+    <div id="unit-length"></div>
+  </div>
+</div>
+<div class="panel" id="panel-weight"><div class="card"><h3>Conversor de peso</h3><p class="desc">Converte entre quilograma, grama, libra, onca e tonelada.</p><div id="unit-weight"></div></div></div>
+<div class="panel" id="panel-volume"><div class="card"><h3>Conversor de volume</h3><p class="desc">Converte entre litro, mililitro, galao, metro cubico e xicara.</p><div id="unit-volume"></div></div></div>
+<div class="panel" id="panel-temperature"><div class="card"><h3>Conversor de temperatura</h3><p class="desc">Converte entre Celsius, Fahrenheit e Kelvin.</p><div id="unit-temperature"></div></div></div>
+<div class="panel" id="panel-area"><div class="card"><h3>Conversor de area</h3><p class="desc">Converte entre metro quadrado, hectare, quilometro quadrado, acre e pe quadrado.</p><div id="unit-area"></div></div></div>
+<div class="panel" id="panel-speed"><div class="card"><h3>Conversor de velocidade</h3><p class="desc">Converte entre km/h, m/s, milha por hora e no.</p><div id="unit-speed"></div></div></div>
+<div class="panel" id="panel-time"><div class="card"><h3>Conversor de tempo</h3><p class="desc">Converte entre segundo, minuto, hora, dia, semana, mes e ano.</p><div id="unit-time"></div></div></div>
+<div class="panel" id="panel-data"><div class="card"><h3>Conversor de dados</h3><p class="desc">Converte entre byte, kilobyte, megabyte, gigabyte, terabyte (base 1024).</p><div id="unit-data"></div></div></div>
+<div class="panel" id="panel-cooking"><div class="card"><h3>Culinaria</h3><p class="desc">Equivalencias entre xicara, colher de sopa, colher de cha e unidades metricas. Valores aproximados.</p><div id="unit-cooking"></div></div></div>
+
+<!-- ROUPAS -->
+<div class="panel" id="panel-clothing">
+  <div class="card">
+    <h3>Tamanhos de roupa</h3>
+    <p class="desc">Tabela de conversao BR, US e EU para roupas adultas (valores aproximados).</p>
+    <table>
+      <thead><tr><th>BR</th><th>US</th><th>EU</th><th>UK</th></tr></thead>
+      <tbody>
+        <tr><td>PP</td><td>XS</td><td>34</td><td>6</td></tr>
+        <tr><td>P</td><td>S</td><td>36-38</td><td>8-10</td></tr>
+        <tr><td>M</td><td>M</td><td>40-42</td><td>12-14</td></tr>
+        <tr><td>G</td><td>L</td><td>44-46</td><td>16-18</td></tr>
+        <tr><td>GG</td><td>XL</td><td>48-50</td><td>20</td></tr>
+        <tr><td>XG</td><td>XXL</td><td>52-54</td><td>22-24</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h3>Sapatos adulto (BR / US / EU)</h3>
+    <table>
+      <thead><tr><th>BR</th><th>US Masc</th><th>US Fem</th><th>EU</th></tr></thead>
+      <tbody>
+        <tr><td>34</td><td>—</td><td>5</td><td>35</td></tr>
+        <tr><td>35</td><td>—</td><td>6</td><td>36</td></tr>
+        <tr><td>36</td><td>—</td><td>7</td><td>37</td></tr>
+        <tr><td>37</td><td>6</td><td>8</td><td>38</td></tr>
+        <tr><td>38</td><td>7</td><td>9</td><td>39</td></tr>
+        <tr><td>39</td><td>8</td><td>10</td><td>40</td></tr>
+        <tr><td>40</td><td>9</td><td>11</td><td>41</td></tr>
+        <tr><td>41</td><td>10</td><td>—</td><td>42</td></tr>
+        <tr><td>42</td><td>11</td><td>—</td><td>43</td></tr>
+        <tr><td>43</td><td>12</td><td>—</td><td>44</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- MOEDAS -->
+<div class="panel" id="panel-currency">
+  <div class="card">
+    <h3>Moedas <span class="badge blue" id="currStatus"><span class="dot"></span>Carregando</span></h3>
+    <p class="desc">Cotacoes via AwesomeAPI (economia.awesomeapi.com.br). Ultima atualizacao: <span id="currUpdated">—</span>.</p>
+    <div id="currencyBox"></div>
+  </div>
+</div>
+
+<!-- CRIPTO -->
+<div class="panel" id="panel-crypto">
+  <div class="card">
+    <h3>Criptomoedas <span class="badge yel" id="cryptoStatus"><span class="dot"></span>Carregando</span></h3>
+    <p class="desc">Cotacoes via AwesomeAPI em BRL. Ultima atualizacao: <span id="cryptoUpdated">—</span>.</p>
+    <div id="cryptoBox"></div>
+  </div>
+</div>
+
+<!-- JUROS -->
+<div class="panel" id="panel-interest">
+  <div class="card">
+    <h3>Juros compostos</h3>
+    <p class="desc">Simulador de juros compostos com modo percentual do CDI.</p>
+    <div class="row">
+      <div class="field"><label>Capital inicial (R$)</label><input type="number" id="iCap" value="1000" min="0" step="50"></div>
+      <div class="field"><label>Aporte mensal (R$)</label><input type="number" id="iApt" value="200" min="0" step="10"></div>
+      <div class="field"><label>Periodo (meses)</label><input type="number" id="iMes" value="24" min="1" max="600"></div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>Modo</label>
+        <select id="iModo">
+          <option value="cdi">% do CDI</option>
+          <option value="fixed">Taxa fixa ao ano</option>
+        </select>
+      </div>
+      <div class="field" id="iCdiRow">
+        <label>CDI atual (% a.a.)</label>
+        <input type="number" id="iCdi" value="11.15" step="0.01" min="0">
+      </div>
+      <div class="field" id="iTaxaRow">
+        <label><span id="iTaxaLabel">% do CDI</span></label>
+        <input type="number" id="iTaxa" value="100" step="1" min="0">
+      </div>
+    </div>
+    <div class="slider-wrap">
+      <div class="slider-hd"><span>Ajuste rapido (% do CDI)</span><span class="v" id="iSliderV">100%</span></div>
+      <input type="range" id="iSlider" min="50" max="150" value="100">
+      <div class="presets">
+        <button class="preset" data-cdi="80">80%</button>
+        <button class="preset active" data-cdi="100">100%</button>
+        <button class="preset" data-cdi="110">110%</button>
+        <button class="preset" data-cdi="120">120%</button>
+      </div>
+    </div>
+    <div class="result" id="iResult"></div>
+    <div class="stats" id="iStats"></div>
+    <div class="note"><strong>Aviso:</strong> calculo para fins informativos e educacionais. Nao constitui recomendacao de investimento.</div>
+  </div>
+</div>
+
+<!-- POUPANCA -->
+<div class="panel" id="panel-savings">
+  <div class="card">
+    <h3>Rendimento poupanca</h3>
+    <p class="desc">Simulador com a regra SELIC (bifurcacao em 8,5% ao ano). Rendimento mensal = 0,5% + TR quando SELIC > 8,5%, ou 70% da SELIC + TR quando SELIC &le; 8,5%.</p>
+    <div class="row">
+      <div class="field"><label>Capital inicial (R$)</label><input type="number" id="pCap" value="1000" min="0" step="50"></div>
+      <div class="field"><label>Aporte mensal (R$)</label><input type="number" id="pApt" value="100" min="0" step="10"></div>
+      <div class="field"><label>Periodo (meses)</label><input type="number" id="pMes" value="12" min="1" max="600"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>SELIC atual (% a.a.)</label><input type="number" id="pSelic" value="11.75" step="0.25"></div>
+      <div class="field"><label>TR estimada (% a.a.)</label><input type="number" id="pTr" value="0.1" step="0.1"></div>
+    </div>
+    <div class="result" id="pResult"></div>
+    <div class="stats" id="pStats"></div>
+    <div class="note"><strong>Aviso:</strong> valores simulados para fins informativos. Nao constitui recomendacao de investimento.</div>
+  </div>
+</div>
+
+<!-- FGTS -->
+<div class="panel" id="panel-fgts">
+  <div class="card">
+    <h3>Calculadora FGTS</h3>
+    <p class="desc">Simulacao conforme Art. 15 da Lei 8.036/1990: deposito mensal de 8% do salario, saldo corrigido por TR + 3% ao ano.</p>
+    <div class="row">
+      <div class="field"><label>Salario bruto (R$)</label><input type="number" id="fSal" value="3000" min="0" step="100"></div>
+      <div class="field"><label>Tempo de trabalho (meses)</label><input type="number" id="fMes" value="24" min="1" max="600"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>TR anual (%)</label><input type="number" id="fTr" value="0.1" step="0.1"></div>
+      <div class="field"><label>Saldo inicial (R$)</label><input type="number" id="fSaldo" value="0" min="0" step="100"></div>
+    </div>
+    <div class="result" id="fResult"></div>
+    <div class="stats" id="fStats"></div>
+    <div class="note"><strong>Aviso:</strong> simulacao para fins informativos. Consulte a Caixa Economica Federal para valores oficiais.</div>
+  </div>
+</div>
+
+<footer>
+  <p>Converte Tudo Web · © 2026 FabricioRJ · <a href="privacy-policy.html">Privacidade</a> · <a href="index.html">Voltar ao inicio</a></p>
+  <p style="margin-top:6px;color:var(--t4)">Resultados informativos. Para calculos oficiais, consulte fontes autorizadas.</p>
+</footer>
+</main>
+
+<script>
+/* ===== UNIDADES ===== */
+const UNITS = {
+  length: {
+    base: 'm',
+    items: [
+      ['Milimetro (mm)', 'mm', 0.001],
+      ['Centimetro (cm)', 'cm', 0.01],
+      ['Metro (m)', 'm', 1],
+      ['Quilometro (km)', 'km', 1000],
+      ['Polegada (in)', 'in', 0.0254],
+      ['Pe (ft)', 'ft', 0.3048],
+      ['Jarda (yd)', 'yd', 0.9144],
+      ['Milha (mi)', 'mi', 1609.344],
+      ['Milha nautica (nm)', 'nm', 1852],
+    ]
+  },
+  weight: {
+    base: 'kg',
+    items: [
+      ['Miligrama (mg)', 'mg', 0.000001],
+      ['Grama (g)', 'g', 0.001],
+      ['Quilograma (kg)', 'kg', 1],
+      ['Tonelada (t)', 't', 1000],
+      ['Onca (oz)', 'oz', 0.0283495],
+      ['Libra (lb)', 'lb', 0.453592],
+      ['Arroba (@)', '@', 15],
+    ]
+  },
+  volume: {
+    base: 'l',
+    items: [
+      ['Mililitro (ml)', 'ml', 0.001],
+      ['Litro (l)', 'l', 1],
+      ['Metro cubico (m3)', 'm3', 1000],
+      ['Galao US (gal)', 'gal', 3.78541],
+      ['Xicara (cup)', 'cup', 0.24],
+      ['Colher de sopa (tbsp)', 'tbsp', 0.0148],
+      ['Colher de cha (tsp)', 'tsp', 0.00493],
+    ]
+  },
+  area: {
+    base: 'm2',
+    items: [
+      ['Metro quadrado (m2)', 'm2', 1],
+      ['Centimetro quadrado (cm2)', 'cm2', 0.0001],
+      ['Quilometro quadrado (km2)', 'km2', 1e6],
+      ['Hectare (ha)', 'ha', 10000],
+      ['Acre', 'acre', 4046.86],
+      ['Pe quadrado (ft2)', 'ft2', 0.092903],
+    ]
+  },
+  speed: {
+    base: 'm/s',
+    items: [
+      ['Metro por segundo (m/s)', 'm/s', 1],
+      ['Quilometro por hora (km/h)', 'km/h', 1/3.6],
+      ['Milha por hora (mph)', 'mph', 0.44704],
+      ['Pe por segundo (ft/s)', 'ft/s', 0.3048],
+      ['No (kn)', 'kn', 0.514444],
+    ]
+  },
+  time: {
+    base: 's',
+    items: [
+      ['Segundo (s)', 's', 1],
+      ['Minuto (min)', 'min', 60],
+      ['Hora (h)', 'h', 3600],
+      ['Dia (d)', 'd', 86400],
+      ['Semana', 'wk', 604800],
+      ['Mes (30 dias)', 'mo', 2592000],
+      ['Ano (365 dias)', 'yr', 31536000],
+    ]
+  },
+  data: {
+    base: 'B',
+    items: [
+      ['Byte (B)', 'B', 1],
+      ['Kilobyte (KB)', 'KB', 1024],
+      ['Megabyte (MB)', 'MB', 1048576],
+      ['Gigabyte (GB)', 'GB', 1073741824],
+      ['Terabyte (TB)', 'TB', 1099511627776],
+      ['Petabyte (PB)', 'PB', 1125899906842624],
+    ]
+  },
+  cooking: {
+    base: 'ml',
+    items: [
+      ['Mililitro (ml)', 'ml', 1],
+      ['Xicara de cha (240ml)', 'cup', 240],
+      ['Colher de sopa (15ml)', 'tbsp', 15],
+      ['Colher de cha (5ml)', 'tsp', 5],
+      ['Litro', 'l', 1000],
+      ['Onca fluida (oz)', 'floz', 29.5735],
+      ['Colher de sobremesa (10ml)', 'dsp', 10],
+    ]
+  },
+};
+
+/* unit converter UI (generic) */
+const DEFAULTS = {
+  length: ['m','cm'], weight: ['kg','g'], volume: ['l','ml'],
+  temperature: ['C','F'], area: ['m2','ha'], speed: ['km/h','m/s'],
+  time: ['h','min'], data: ['GB','MB'], cooking: ['cup','ml'],
+};
+function renderUnitConverter(cat) {
+  const u = UNITS[cat];
+  const [defFrom, defTo] = DEFAULTS[cat] || [u.items[0][1], u.items[1]?.[1] || u.items[0][1]];
+  const host = document.getElementById('unit-' + cat);
+  host.innerHTML = `
+    <div class="row">
+      <div class="field">
+        <label>Valor de entrada</label>
+        <input type="number" class="uc-input" data-cat="${cat}" data-role="input" value="1" step="any">
+      </div>
+      <div class="field">
+        <label>Unidade de origem</label>
+        <select class="uc-from" data-cat="${cat}" data-role="from">
+          ${u.items.map(([label,key])=>`<option value="${key}" ${key===defFrom?'selected':''}>${label}</option>`).join('')}
+        </select>
+      </div>
+      <button class="btn-swap" data-cat="${cat}" data-role="swap" title="Inverter">⇄</button>
+      <div class="field">
+        <label>Unidade de destino</label>
+        <select class="uc-to" data-cat="${cat}" data-role="to">
+          ${u.items.map(([label,key])=>`<option value="${key}" ${key===defTo?'selected':''}>${label}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="result">
+      <div class="lbl">Resultado</div>
+      <div class="val" data-cat="${cat}" data-role="out">—</div>
+      <div class="sub" data-cat="${cat}" data-role="sub"></div>
+    </div>
+    <div class="stats" data-cat="${cat}" data-role="grid"></div>
+  `;
+}
+
+function calcUnit(cat) {
+  const u = UNITS[cat];
+  const root = document.getElementById('unit-' + cat);
+  const val = parseFloat(root.querySelector('[data-role="input"]').value);
+  const fromK = root.querySelector('[data-role="from"]').value;
+  const toK = root.querySelector('[data-role="to"]').value;
+  const out = root.querySelector('[data-role="out"]');
+  const sub = root.querySelector('[data-role="sub"]');
+  const grid = root.querySelector('[data-role="grid"]');
+  if (isNaN(val)) { out.textContent='—'; sub.textContent=''; grid.innerHTML=''; return; }
+  let result;
+  if (cat === 'temperature') { result = convertTemp(val, fromK, toK); }
+  else {
+    const from = u.items.find(x=>x[1]===fromK)[2];
+    const to = u.items.find(x=>x[1]===toK)[2];
+    result = val * from / to;
+  }
+  out.innerHTML = formatNum(result) + ' <span class="unit">' + toK + '</span>';
+  sub.textContent = `${formatNum(val)} ${fromK} = ${formatNum(result)} ${toK}`;
+  grid.innerHTML = u.items.filter(it=>it[1]!==toK).slice(0,6).map(([lbl,k,factor])=>{
+    let v;
+    if (cat === 'temperature') v = convertTemp(val, fromK, k);
+    else v = val * (u.items.find(x=>x[1]===fromK)[2]) / factor;
+    return `<div class="stat-item"><div class="l">${lbl}</div><div class="v">${formatNum(v)}</div></div>`;
+  }).join('');
+}
+
+/* temperature special case */
+function convertTemp(v, from, to) {
+  let c;
+  if (from==='C') c = v;
+  else if (from==='F') c = (v-32)*5/9;
+  else if (from==='K') c = v-273.15;
+  if (to==='C') return c;
+  if (to==='F') return c*9/5 + 32;
+  if (to==='K') return c + 273.15;
+  return v;
+}
+UNITS.temperature = { base: 'C', items: [['Celsius (°C)','C',1],['Fahrenheit (°F)','F',1],['Kelvin (K)','K',1]] };
+
+/* render all unit converters */
+['length','weight','volume','temperature','area','speed','time','data','cooking'].forEach(cat=>{
+  renderUnitConverter(cat);
+  const root = document.getElementById('unit-' + cat);
+  root.addEventListener('input', () => calcUnit(cat));
+  root.addEventListener('change', () => calcUnit(cat));
+  root.querySelector('[data-role="swap"]').addEventListener('click', () => {
+    const from = root.querySelector('[data-role="from"]');
+    const to = root.querySelector('[data-role="to"]');
+    const tmp = from.value; from.value = to.value; to.value = tmp;
+    calcUnit(cat);
+  });
+  calcUnit(cat);
+});
+
+/* ===== FORMATACAO ===== */
+function formatNum(n){
+  if(!isFinite(n)) return '—';
+  if(Math.abs(n) >= 1e9) return n.toExponential(4).replace('.',',').replace('+','');
+  if(Math.abs(n) < 1e-6 && n !== 0) return n.toExponential(4).replace('.',',').replace('+','');
+  const abs = Math.abs(n);
+  let digits = 4;
+  if(abs >= 1000) digits = 2;
+  else if(abs >= 100) digits = 3;
+  else if(abs >= 1) digits = 4;
+  else digits = 6;
+  return n.toLocaleString('pt-BR', {maximumFractionDigits:digits, minimumFractionDigits:0});
+}
+function formatBRL(n){ if(!isFinite(n)) return '—'; return n.toLocaleString('pt-BR', {style:'currency', currency:'BRL', minimumFractionDigits:2, maximumFractionDigits:2}); }
+function formatPct(n){ return n.toLocaleString('pt-BR', {maximumFractionDigits:2, minimumFractionDigits:2}) + '%'; }
+
+/* ===== JUROS COMPOSTOS ===== */
+function calcInterest(){
+  const cap = +document.getElementById('iCap').value || 0;
+  const apt = +document.getElementById('iApt').value || 0;
+  const meses = +document.getElementById('iMes').value || 0;
+  const modo = document.getElementById('iModo').value;
+  const cdi = +document.getElementById('iCdi').value || 0;
+  const taxa = +document.getElementById('iTaxa').value || 0;
+  document.getElementById('iCdiRow').style.display = modo==='cdi' ? '' : 'none';
+  document.getElementById('iTaxaLabel').textContent = modo==='cdi' ? '% do CDI' : 'Taxa ao ano (%)';
+  let aa;
+  if (modo==='cdi') aa = cdi * taxa / 100;
+  else aa = taxa;
+  const am = Math.pow(1+aa/100, 1/12) - 1;
+  let saldo = cap;
+  for(let i=0;i<meses;i++){ saldo = saldo*(1+am) + apt; }
+  const investido = cap + apt*meses;
+  const juros = saldo - investido;
+  const r = document.getElementById('iResult');
+  r.innerHTML = `<div class="lbl">Saldo final apos ${meses} meses</div><div class="val">${formatBRL(saldo)}</div><div class="sub">Taxa efetiva: ${formatPct(aa)} ao ano · ${formatPct(am*100)} ao mes</div>`;
+  document.getElementById('iStats').innerHTML = `
+    <div class="stat-item"><div class="l">Total investido</div><div class="v">${formatBRL(investido)}</div></div>
+    <div class="stat-item"><div class="l">Juros ganhos</div><div class="v green">${formatBRL(juros)}</div></div>
+    <div class="stat-item"><div class="l">% de juros</div><div class="v blue">${formatPct(investido>0?juros/investido*100:0)}</div></div>
+  `;
+}
+['iCap','iApt','iMes','iModo','iCdi','iTaxa'].forEach(id=>document.getElementById(id).addEventListener('input', calcInterest));
+document.getElementById('iModo').addEventListener('change', calcInterest);
+document.getElementById('iSlider').addEventListener('input', e=>{
+  document.getElementById('iTaxa').value = e.target.value;
+  document.getElementById('iSliderV').textContent = e.target.value+'%';
+  document.querySelectorAll('.preset').forEach(p=>p.classList.toggle('active', p.dataset.cdi===e.target.value));
+  calcInterest();
+});
+document.querySelectorAll('.preset').forEach(p=>p.addEventListener('click', e=>{
+  const v = e.target.dataset.cdi;
+  document.getElementById('iTaxa').value = v;
+  document.getElementById('iSlider').value = v;
+  document.getElementById('iSliderV').textContent = v+'%';
+  document.querySelectorAll('.preset').forEach(x=>x.classList.remove('active'));
+  e.target.classList.add('active');
+  calcInterest();
+}));
+calcInterest();
+
+/* ===== POUPANCA ===== */
+function calcSavings(){
+  const cap = +document.getElementById('pCap').value || 0;
+  const apt = +document.getElementById('pApt').value || 0;
+  const meses = +document.getElementById('pMes').value || 0;
+  const selic = +document.getElementById('pSelic').value || 0;
+  const trAA = +document.getElementById('pTr').value || 0;
+  let aa;
+  if (selic > 8.5) aa = 6.17 + trAA; // 0.5% am ≈ 6.17% aa
+  else aa = selic*0.7 + trAA;
+  const am = Math.pow(1+aa/100, 1/12) - 1;
+  let saldo = cap;
+  for(let i=0;i<meses;i++){ saldo = saldo*(1+am) + apt; }
+  const investido = cap + apt*meses;
+  const rend = saldo - investido;
+  const r = document.getElementById('pResult');
+  r.innerHTML = `<div class="lbl">Saldo da poupanca</div><div class="val">${formatBRL(saldo)}</div><div class="sub">Rendimento efetivo: ${formatPct(aa)} ao ano · regra SELIC ${selic>8.5?'> 8,5%':'≤ 8,5%'}</div>`;
+  document.getElementById('pStats').innerHTML = `
+    <div class="stat-item"><div class="l">Investido</div><div class="v">${formatBRL(investido)}</div></div>
+    <div class="stat-item"><div class="l">Rendimento</div><div class="v green">${formatBRL(rend)}</div></div>
+    <div class="stat-item"><div class="l">Taxa mensal</div><div class="v blue">${formatPct(am*100)}</div></div>
+  `;
+}
+['pCap','pApt','pMes','pSelic','pTr'].forEach(id=>document.getElementById(id).addEventListener('input', calcSavings));
+calcSavings();
+
+/* ===== FGTS ===== */
+function calcFGTS(){
+  const sal = +document.getElementById('fSal').value || 0;
+  const meses = +document.getElementById('fMes').value || 0;
+  const trAA = +document.getElementById('fTr').value || 0;
+  const saldoInicial = +document.getElementById('fSaldo').value || 0;
+  const aa = 3 + trAA;
+  const am = Math.pow(1+aa/100, 1/12) - 1;
+  const dep = sal * 0.08;
+  let saldo = saldoInicial;
+  for(let i=0;i<meses;i++){ saldo = saldo*(1+am) + dep; }
+  const totalDep = saldoInicial + dep*meses;
+  const juros = saldo - totalDep;
+  const multa = saldo * 0.40;
+  const r = document.getElementById('fResult');
+  r.innerHTML = `<div class="lbl">Saldo do FGTS apos ${meses} meses</div><div class="val">${formatBRL(saldo)}</div><div class="sub">Deposito mensal: ${formatBRL(dep)} · Taxa anual: TR (${trAA.toFixed(1)}%) + 3% = ${formatPct(aa)}</div>`;
+  document.getElementById('fStats').innerHTML = `
+    <div class="stat-item"><div class="l">Total depositado</div><div class="v">${formatBRL(totalDep)}</div></div>
+    <div class="stat-item"><div class="l">Juros (TR + 3% a.a.)</div><div class="v green">${formatBRL(juros)}</div></div>
+    <div class="stat-item"><div class="l">Multa rescisoria 40%</div><div class="v blue">${formatBRL(multa)}</div></div>
+    <div class="stat-item"><div class="l">Saldo + multa</div><div class="v">${formatBRL(saldo + multa)}</div></div>
+  `;
+}
+['fSal','fMes','fTr','fSaldo'].forEach(id=>document.getElementById(id).addEventListener('input', calcFGTS));
+calcFGTS();
+
+/* ===== MOEDAS AO VIVO (AwesomeAPI) ===== */
+const CURRENCIES = ['USD','EUR','GBP','JPY','CHF','CAD','AUD','ARS'];
+async function loadCurrency(){
+  const box = document.getElementById('currencyBox');
+  const status = document.getElementById('currStatus');
+  try {
+    const url = 'https://economia.awesomeapi.com.br/json/last/' + CURRENCIES.map(c=>c+'-BRL').join(',');
+    const r = await fetch(url);
+    const data = await r.json();
+    const rates = {};
+    CURRENCIES.forEach(c => { const k = c + 'BRL'; if (data[k]) rates[c] = +data[k].bid; });
+    renderCurrencyUI(rates);
+    status.className = 'badge green';
+    status.innerHTML = '<span class="dot"></span>Ao vivo';
+    document.getElementById('currUpdated').textContent = new Date().toLocaleString('pt-BR');
+  } catch(e){
+    status.className = 'badge red';
+    status.innerHTML = '<span class="dot"></span>Offline';
+    box.innerHTML = '<div class="note"><strong>Sem conexao.</strong> Nao foi possivel atualizar as cotacoes. Tente novamente com internet.</div>';
+  }
+}
+function renderCurrencyUI(rates){
+  const box = document.getElementById('currencyBox');
+  const opts = ['BRL', ...Object.keys(rates)];
+  box.innerHTML = `
+    <div class="row">
+      <div class="field">
+        <label>Valor</label>
+        <input type="number" id="curVal" value="100" step="any">
+      </div>
+      <div class="field">
+        <label>De</label>
+        <select id="curFrom">${opts.map(o=>`<option value="${o}">${o}</option>`).join('')}</select>
+      </div>
+      <button class="btn-swap" id="curSwap">⇄</button>
+      <div class="field">
+        <label>Para</label>
+        <select id="curTo">${opts.map(o=>`<option value="${o}" ${o==='USD'?'selected':''}>${o}</option>`).join('')}</select>
+      </div>
+    </div>
+    <div class="result">
+      <div class="lbl">Resultado</div>
+      <div class="val" id="curOut">—</div>
+    </div>
+    <table style="margin-top:14px">
+      <thead><tr><th>Moeda</th><th>1 unidade em BRL</th></tr></thead>
+      <tbody>${Object.entries(rates).map(([c,v])=>`<tr><td>${c}</td><td class="num">${formatBRL(v)}</td></tr>`).join('')}</tbody>
+    </table>
+  `;
+  function convert(){
+    const v = +document.getElementById('curVal').value || 0;
+    const from = document.getElementById('curFrom').value;
+    const to = document.getElementById('curTo').value;
+    const brlFrom = from==='BRL' ? 1 : rates[from];
+    const brlTo = to==='BRL' ? 1 : rates[to];
+    if(!brlFrom || !brlTo){ document.getElementById('curOut').textContent='—'; return; }
+    const r = v * brlFrom / brlTo;
+    document.getElementById('curOut').innerHTML = formatNum(r) + ' <span class="unit">' + to + '</span>';
+  }
+  ['curVal','curFrom','curTo'].forEach(id=>document.getElementById(id).addEventListener('input', convert));
+  document.getElementById('curSwap').addEventListener('click', ()=>{
+    const a = document.getElementById('curFrom'); const b = document.getElementById('curTo');
+    const t = a.value; a.value = b.value; b.value = t; convert();
+  });
+  convert();
+}
+
+/* ===== CRIPTO ===== */
+const CRYPTOS = ['BTC','ETH','USDT','BNB','SOL','XRP','ADA','DOGE'];
+async function loadCrypto(){
+  const box = document.getElementById('cryptoBox');
+  const status = document.getElementById('cryptoStatus');
+  try {
+    const url = 'https://economia.awesomeapi.com.br/json/last/' + CRYPTOS.map(c=>c+'-BRL').join(',');
+    const r = await fetch(url);
+    const data = await r.json();
+    const rates = {};
+    CRYPTOS.forEach(c => { const k = c + 'BRL'; if (data[k]) rates[c] = +data[k].bid; });
+    renderCryptoUI(rates);
+    status.className = 'badge green';
+    status.innerHTML = '<span class="dot"></span>Ao vivo';
+    document.getElementById('cryptoUpdated').textContent = new Date().toLocaleString('pt-BR');
+  } catch(e){
+    status.className = 'badge red';
+    status.innerHTML = '<span class="dot"></span>Offline';
+    box.innerHTML = '<div class="note"><strong>Sem conexao.</strong> Nao foi possivel atualizar as cotacoes cripto.</div>';
+  }
+}
+function renderCryptoUI(rates){
+  const box = document.getElementById('cryptoBox');
+  box.innerHTML = `
+    <div class="row">
+      <div class="field"><label>Quantidade</label><input type="number" id="cryVal" value="1" step="any"></div>
+      <div class="field"><label>Cripto</label><select id="cryFrom">${Object.keys(rates).map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
+    </div>
+    <div class="result">
+      <div class="lbl">Valor em BRL</div>
+      <div class="val" id="cryOut">—</div>
+    </div>
+    <table style="margin-top:14px">
+      <thead><tr><th>Cripto</th><th>1 unidade em BRL</th></tr></thead>
+      <tbody>${Object.entries(rates).map(([c,v])=>`<tr><td>${c}</td><td class="num">${formatBRL(v)}</td></tr>`).join('')}</tbody>
+    </table>
+  `;
+  function convert(){
+    const v = +document.getElementById('cryVal').value || 0;
+    const from = document.getElementById('cryFrom').value;
+    const r = v * rates[from];
+    document.getElementById('cryOut').innerHTML = formatBRL(r);
+  }
+  ['cryVal','cryFrom'].forEach(id=>document.getElementById(id).addEventListener('input', convert));
+  convert();
+}
+
+/* ===== TABS ===== */
+const tabs = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+let currencyLoaded = false, cryptoLoaded = false;
+tabs.forEach(t=>t.addEventListener('click', ()=>{
+  const id = t.dataset.tab;
+  tabs.forEach(x=>x.classList.toggle('active', x===t));
+  panels.forEach(p=>p.classList.toggle('active', p.id==='panel-'+id));
+  if(id==='currency' && !currencyLoaded){ currencyLoaded=true; loadCurrency(); }
+  if(id==='crypto' && !cryptoLoaded){ cryptoLoaded=true; loadCrypto(); }
+  try { localStorage.setItem('ct_tab', id); } catch(e){}
+}));
+try {
+  const savedTab = localStorage.getItem('ct_tab');
+  if (savedTab) { const btn = document.querySelector(`.tab[data-tab="${savedTab}"]`); if(btn) btn.click(); }
+} catch(e){}
+
+/* ===== THEME TOGGLE ===== */
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(t){ document.documentElement.setAttribute('data-theme', t); themeBtn.textContent = t==='dark'?'☀':'🌙'; }
+try {
+  const saved = localStorage.getItem('ct_theme') || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  applyTheme(saved);
+} catch(e){ applyTheme('light'); }
+themeBtn.addEventListener('click', ()=>{
+  const cur = document.documentElement.getAttribute('data-theme') || 'light';
+  const next = cur==='dark'?'light':'dark';
+  applyTheme(next);
+  try { localStorage.setItem('ct_theme', next); } catch(e){}
+});
+</script>
+</body>
+</html>

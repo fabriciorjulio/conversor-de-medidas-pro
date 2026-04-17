@@ -1,183 +1,133 @@
 ================================================================================
-DESCRIÇÕES PRONTAS PARA PLAY STORE - CONVERTE TUDO
+DESCRICOES PARA PLAY STORE - CONVERTE TUDO
+Versao revisada apos rejeicao (Metadata Policy - Version code 8)
 ================================================================================
 
-COPIE E COLE DIRETO NO PLAY CONSOLE
+POLITICA SEGUIDA:
+- Sem linguagem promocional ("melhor", "definitivo", "perfeito")
+- Sem numeros/rankings promocionais no titulo ("20+", "#1")
+- Sem claims falsos ("sem anuncios" quando ha AdMob)
+- Sem formatacao excessiva (dividers, emojis em cada linha)
+- Sem testemunhos de usuarios
+- Descricao factual, clara e bem escrita
 
 ================================================================================
-1. TÍTULO (30 caracteres máximo)
+1. TITULO (30 caracteres maximo)
 ================================================================================
 
-Converte Tudo - 20+ Conversores
-
-
-================================================================================
-2. DESCRIÇÃO RESUMIDA (80 caracteres máximo)
-================================================================================
-
-Medidas, moedas e finanças em um app. Offline, grátis, sem anúncios.
+Converte Tudo: Medidas e FGTS
 
 
 ================================================================================
-3. DESCRIÇÃO COMPLETA (4000 caracteres - copie e cole tudo abaixo)
+2. DESCRICAO CURTA (80 caracteres maximo)
 ================================================================================
 
-🔄 CONVERTE TUDO - SEU CONVERSOR DEFINITIVO
+Conversor de medidas e calculadoras financeiras brasileiras. Modo offline.
 
-Converte Tudo é o conversor definitivo para Android com 20+ conversores de medidas, calculadoras financeiras e ferramentas exóticas em um único app!
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+================================================================================
+3. DESCRICAO COMPLETA (4000 caracteres maximo)
+================================================================================
 
-📏 MEDIDAS (10 categorias)
-✓ Comprimento: metro, centímetro, quilômetro, polegada, pé, jarda, milha
-✓ Peso: quilograma, grama, libra, onça, tonelada
-✓ Volume: litro, mililitro, galão, metro cúbico, xícara
-✓ Temperatura: Celsius, Fahrenheit, Kelvin (conversões precisas)
-✓ Área: metro², hectare, quilômetro²
-✓ Velocidade: km/h ↔ m/s, nó
-✓ Culinária: xícara, colher de sopa, colher de chá para receitas
-✓ Tempo: segundo, minuto, hora, dia, semana, mês, ano
-✓ Dados: byte, kilobyte, megabyte, gigabyte, terabyte
+Converte Tudo reune conversores de medidas e calculadoras financeiras
+brasileiras em um unico aplicativo. Funciona offline para conversoes de
+unidades e simulacoes; conexao com a internet e necessaria apenas para
+cotacoes ao vivo.
 
-💵 FINANCEIRO
-✓ Juros Compostos: calcule rentabilidade com taxa CDI
-✓ Poupança: simule saldo com correção
-✓ FGTS: calcule seu saldo corrigido
-✓ Moedas ao Vivo: USD, EUR, GBP, JPY, CAD, AUD
-✓ Criptomoedas: BTC, ETH, USDT atualizados em tempo real
+CONVERSORES DE MEDIDAS
 
-🛠️ 5 FERRAMENTAS EXÓTICAS
-1. 🚗 FIPE: descubra o valor do seu carro (carros, motos, caminhões)
-2. 📄 PDF: converta texto, imagens e DOCX para PDF
-3. 🖼️ Imagens: converta PNG ↔ JPG ↔ BMP em segundos
-4. 🌾 Commodities: converta soja, milho, café de kg/saca com cotações
-5. 👕 Tamanhos: tabela de conversão BR ↔ US ↔ EU para roupas
+- Comprimento: metro, centimetro, quilometro, polegada, pe, jarda, milha
+- Peso: quilograma, grama, libra, onca, tonelada
+- Volume: litro, mililitro, galao, metro cubico, xicara
+- Temperatura: Celsius, Fahrenheit, Kelvin
+- Area: metro quadrado, hectare, quilometro quadrado, acre
+- Velocidade: km/h, m/s, milha por hora, no
+- Tempo: segundo, minuto, hora, dia, semana, mes, ano
+- Dados: byte, kilobyte, megabyte, gigabyte, terabyte
+- Culinaria: xicara, colher de sopa, colher de cha
+- Tamanhos de roupa: tabela BR, US e EU
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CALCULADORAS FINANCEIRAS
 
-✨ DESTAQUES PRINCIPAIS
+- Juros compostos com taxa configuravel e modo percentual do CDI
+- Simulador de poupanca com regra SELIC
+- Calculo de FGTS (deposito de 8%, TR + 3% ao ano)
+- Conversor de moedas (Real, Dolar, Euro, Libra, Iene e outras)
+- Conversor de criptomoedas (Bitcoin, Ethereum, USDT e outras)
 
-✅ 100% OFFLINE
-Não precisa de internet! Todos os conversores funcionam offline. Cotações ao vivo são opcionais e atualizadas quando conectado.
+FERRAMENTAS ADICIONAIS
 
-🌙 DARK MODE
-Modo noturno automático que detecta preferência do seu telefone. Interface limpa e sem distrações.
+- Consulta FIPE para carros, motos e caminhoes
+- Conversao de texto, imagens e DOCX para PDF
+- Conversao entre formatos de imagem (PNG, JPG, BMP)
+- Conversor de commodities (soja, milho, cafe) em kg e saca
 
-📊 HISTÓRICO COMPLETO
-Mantém histórico das últimas 10 conversões. Limpe, remova itens ou compartilhe resultados em tempo real.
+RECURSOS
 
-🚀 SEM TRAVAMENTOS
-App otimizada com isolates para operações pesadas (PDF, imagens). Processamento rápido mesmo com arquivos grandes.
+- Conversoes de unidades e calculadoras funcionam sem internet
+- Cotacoes ao vivo sao atualizadas quando ha conexao e ficam em cache
+- Historico das ultimas conversoes
+- Tema claro e escuro
+- Compartilhamento de resultados
+- Interface em portugues do Brasil com virgula como separador decimal
 
-🔐 SEM DADOS COLETADOS
-• Nenhum dado pessoal é coletado
-• Histórico fica 100% no seu telefone
-• Sem rastreamento, sem cookies, sem identificadores
+PRIVACIDADE
 
-📱 INTERFACE INTUITIVA
-Busca unificada de conversores
-Swap units para reverter conversão
-Compartilhamento com um toque
+Nao coletamos dados pessoais. O historico e as preferencias ficam
+armazenados apenas no seu dispositivo. A politica de privacidade completa
+esta disponivel dentro do app e no link oficial.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PUBLICIDADE
 
-🎯 PERFEITO PARA:
-- Cozinha: converta xícara → mL, colher de sopa, etc
-- Viagem: USD, EUR, câmbio ao vivo
-- Obra: metro, centímetro, área
-- Negócios: FIPE para avaliação, commodities para trading
-- Estudo: conversões de temperatura, velocidade, tempo
+O aplicativo exibe anuncios do Google AdMob. Voce pode gerenciar as
+preferencias de publicidade nas configuracoes do Android.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVISO
 
-🔧 ESPECIFICAÇÕES TÉCNICAS
-Desenvolvido com Flutter 3.22 (performance nativa)
-Compatível com Android 5.0+
-Tamanho: 48 MB
-Requisitos: Mínimo 100 MB de espaço livre
+Os calculos financeiros sao apresentados para fins informativos e
+educacionais e nao constituem recomendacao de investimento. Consulte um
+profissional qualificado antes de tomar decisoes financeiras.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SUPORTE
 
-❓ DÚVIDAS FREQUENTES
-
-P: Precisa de internet?
-R: NÃO! Todos os conversores funcionam 100% offline. Cotações são opcionais.
-
-P: Meus dados são rastreados?
-R: NÃO! Nenhum dado é coletado ou enviado. Tudo fica no seu telefone.
-
-P: Há anúncios?
-R: Sim, mas não invasivos. Você pode desativar rastreamento de publicidade.
-
-P: É realmente grátis?
-R: Sim! Sem compras in-app, sem versão pro. Sempre grátis.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📧 SUPORTE
 Email: fabriciorjulio@gmail.com
-GitHub: github.com/fabriciorjulio/conversor-de-medidas-pro
-Política de Privacidade: Incluída no app
-
-Desenvolvido com ❤️ para o Brasil.
 
 
 ================================================================================
-4. PALAVRAS-CHAVE (máximo 5)
+4. TAGS DE PESQUISA (5 palavras-chave)
 ================================================================================
 
 1. conversor de medidas
 2. calculadora financeira
-3. cotações ao vivo
-4. converte moedas
-5. ferramentas offline
+3. calculadora fgts
+4. conversor de moedas
+5. juros compostos
 
 
 ================================================================================
-5. NOTAS DE LANÇAMENTO (para versão 1.0)
+5. NOTAS DE LANCAMENTO (What's new)
 ================================================================================
 
-VERSÃO 1.0 - LANÇAMENTO OFICIAL
-
-✨ Novo
-- 20+ conversores de medidas (comprimento, peso, volume, temperatura, etc)
-- Calculadoras financeiras (juros, poupança, FGTS)
-- 5 ferramentas exóticas (FIPE, PDF, imagens, commodities, tamanhos)
-- Cotações ao vivo para moedas e criptomoedas
-
-🎨 Recursos
-- Dark mode automático
-- Histórico de conversões
-- Modo offline completo
-- Interface otimizada para performance
-- Sem rastreamento de dados
-- Suporte a Portuguese (Brasil)
-
-🐛 Correções
-- Otimizações iniciais
-- Testes completos (100+ use cases)
-
-⚡ Performance
-- Nenhum travamento
-- Processamento isolado para operações pesadas
-- 48 MB otimizados
-
-Obrigado por usar Converte Tudo! 🎉
+Correcoes e melhorias:
+- Ajustes na descricao da loja em conformidade com a politica da Google Play
+- Correcoes de estabilidade
+- Melhorias na conversao de PDF e imagens
+- Atualizacao de cotacoes em cache
 
 
 ================================================================================
 6. CATEGORIA
 ================================================================================
 
-PRINCIPAL: Produtividade
-SECUNDÁRIA (opcional): Ferramentas
+PRINCIPAL: Ferramentas
+SECUNDARIA: Financas
 
 
 ================================================================================
-7. CLASSIFICAÇÃO ETÁRIA
+7. CLASSIFICACAO ETARIA
 ================================================================================
 
-3+ (Irrestrito) / PEGI 3
+Classificacao Indicativa Livre (3+) - o app nao possui conteudo restrito.
 
 
 ================================================================================
@@ -185,28 +135,22 @@ SECUNDÁRIA (opcional): Ferramentas
 ================================================================================
 
 Email: fabriciorjulio@gmail.com
-Website: https://github.com/fabriciorjulio/conversor-de-medidas-pro
-Telefone: (opcional)
+Website: https://fabriciorjulio.github.io/conversor-de-medidas-pro/
+Politica de Privacidade: https://fabriciorjulio.github.io/conversor-de-medidas-pro/privacy-policy.html
 
 
 ================================================================================
-CHECKLIST ANTES DE ENVIAR
+RESUMO DAS CORRECOES APLICADAS (vs versao rejeitada)
 ================================================================================
 
-☑️ Título: "Converte Tudo - 20+ Conversores"
-☑️ Descrição Resumida: "Medidas, moedas e finanças em um app..."
-☑️ Descrição Completa: COLADA ACIMA
-☑️ Palavras-chave: 5 preenchidas
-☑️ Categoria: Produtividade
-☑️ Classificação: 3+ (Irrestrito)
-☑️ Email de suporte: fabriciorjulio@gmail.com
-☑️ Política de privacidade: URL do GitHub Pages
-☑️ Screenshots: 5 capturadas
-☑️ AAB: 48.2 MB enviado
-
-= TUDO PRONTO PARA PUBLICAR! 🚀
-
-
-================================================================================
-FIM DO DOCUMENTO
-================================================================================
+1. Titulo: removido "20+ Conversores" (numero promocional)
+2. Descricao curta: removido "sem anuncios" (claim falso - o app tem AdMob)
+3. Descricao curta: removido "gratis" (promocional)
+4. Descricao longa: removido "DEFINITIVO", "EXOTICAS", "SEM TRAVAMENTOS",
+   "PERFEITO", "SEMPRE GRATIS" (linguagem promocional e subjetiva)
+5. Descricao longa: removidos os dividers ━━━ e emojis por linha
+6. Descricao longa: adicionada secao clara sobre publicidade (AdMob)
+7. Descricao longa: adicionado disclaimer financeiro
+8. Descricao longa: removido "100+ testes" e claims de performance
+9. Removidos FAQs com linguagem marketing ("E realmente gratis?")
+10. Removido "Desenvolvido com amor para o Brasil" (marketing)
