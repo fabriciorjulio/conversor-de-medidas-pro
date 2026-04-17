@@ -90,28 +90,32 @@ Play Console → Sua App → Store listing
 
 ### 3.2 PREENCHIMENTO PRINCIPAL
 
-#### Título (30 caracteres max)
+**IMPORTANTE**: use os textos revisados em `DESCRICOES_PRONTAS.txt` — os
+textos abaixo foram rejeitados pela Metadata Policy (claim "sem anuncios"
+falso, numero promocional "20+" no titulo). Ver `METADATA_FIX_NOTES.md`.
+
+#### Titulo (30 caracteres max)
 ```
-Converte Tudo - 20+ Conversores
+Converte Tudo: Medidas e FGTS
 ```
 
-#### Descrição Resumida (80 caracteres)
+#### Descricao Resumida (80 caracteres)
 ```
-Medidas, moedas e finanças em um app. Offline, gratuito, sem anúncios.
+Conversor de medidas e calculadoras financeiras brasileiras. Modo offline.
 ```
 
-#### Descrição Completa (4000 caracteres max)
+#### Descricao Completa (4000 caracteres max)
 ```
-[COPIE INTEGRO DO ARQUIVO: PLAY_STORE_LISTING.md - seção "DESCRIÇÃO COMPLETA"]
+[COPIE INTEGRO DO ARQUIVO: DESCRICOES_PRONTAS.txt - secao 3]
 ```
 
 ### 3.3 PALAVRA-CHAVE
 ```
 - conversor de medidas
 - calculadora financeira
-- cotações ao vivo
-- converte moedas
-- ferramentas offline
+- calculadora fgts
+- conversor de moedas
+- juros compostos
 ```
 
 ### 3.4 CONTATO DE SUPORTE
@@ -149,9 +153,8 @@ Website: https://github.com/fabriciorjulio/conversor-de-medidas-pro
 
 **1️⃣ Home Screen**
 - Mostrar menu com categorias
-- Destacar "20+ Conversores"
+- Sem texto promocional sobreposto (regra Metadata Policy)
 - Modo claro (light mode)
-- Texto overlay: "Acesso rápido a todos os conversores"
 
 **2️⃣ Conversor em Ação**
 - Exemplo: 1 metro = 100 centímetro
@@ -212,23 +215,9 @@ Selecione: build/app/outputs/bundle/release/app-release.aab (48.2 MB)
 Lançamento Inicial v1.0
 ```
 
-**Notas de release (PT-BR):**
-```
-VERSÃO 1.0 - LANÇAMENTO OFICIAL
-
-✨ Novo
-- 20+ conversores de medidas
-- Calculadoras financeiras
-- 5 ferramentas exóticas
-- Cotações ao vivo
-- Dark mode
-- Histórico completo
-- 100% offline
-
-🎯 Perfeito para: cozinha, viagem, negócios, estudo
-
-Desenvolvido com Flutter 3.22 para máxima performance.
-```
+**Notas de release (PT-BR):** use os textos em `DESCRICOES_PRONTAS.txt`
+secao 5 — os bullets abaixo foram rejeitados por linguagem promocional
+("20+", "exoticas", "Perfeito para", "maxima performance").
 
 ---
 

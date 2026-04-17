@@ -1,7 +1,8 @@
 name: conversor_de_medidas_pro
 description: >
   Conversor de unidades e calculadoras financeiras brasileiras.
-  FGTS, Poupanca, Juros com CDI, cotacoes ao vivo. 100% offline.
+  FGTS, Poupanca, Juros com CDI. Conversoes funcionam offline;
+  cotacoes ao vivo requerem conexao.
 publish_to: "none"
 version: 2.3.2+9
 

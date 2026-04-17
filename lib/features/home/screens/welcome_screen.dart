@@ -291,7 +291,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                               size: 14),
                           const SizedBox(width: 6),
                           Text(
-                            'Funciona 100% offline',
+                            'Conversoes funcionam offline',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -315,8 +315,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   List<Widget> _buildFeatures() {
     const features = [
-      _Feature('📏', '20+ conversores', 'medidas · culinária · tamanhos'),
-      _Feature('🛠️', '5 ferramentas', 'FIPE · Imagens · PDF · Grãos'),
+      _Feature('📏', 'Conversores', 'medidas · culinária · tamanhos'),
+      _Feature('🛠️', 'Ferramentas', 'FIPE · Imagens · PDF · Grãos'),
       _Feature('💵', 'Cotações ao vivo', 'moedas · cripto · FGTS · CDI'),
     ];
 

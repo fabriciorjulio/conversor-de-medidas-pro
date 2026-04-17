@@ -655,9 +655,9 @@ class _Header extends StatelessWidget {
               const SizedBox(height: 16),
               Row(
                 children: [
-                  _StatChip(icon: Icons.straighten_rounded, label: '20+ conversores'),
+                  _StatChip(icon: Icons.straighten_rounded, label: 'Conversores'),
                   const SizedBox(width: 8),
-                  _StatChip(icon: Icons.build_rounded, label: '5 ferramentas'),
+                  _StatChip(icon: Icons.build_rounded, label: 'Ferramentas'),
                   const SizedBox(width: 8),
                   _StatChip(icon: Icons.account_balance_rounded, label: 'FGTS · CDI'),
                 ],

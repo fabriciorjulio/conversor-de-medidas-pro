@@ -63,7 +63,7 @@ CALCULADORAS FINANCEIRAS
 - Simulador de poupanca com regra SELIC
 - Calculo de FGTS (deposito de 8%, TR + 3% ao ano)
 - Conversor de moedas (Real, Dolar, Euro, Libra, Iene e outras)
-- Conversor de criptomoedas (Bitcoin, Ethereum, USDT e outras)
+- Conversor de criptomoedas (Bitcoin, Ethereum, BNB, Solana e outras)
 
 FERRAMENTAS ADICIONAIS
 
