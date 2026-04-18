@@ -170,7 +170,7 @@ footer a{color:var(--blu);font-weight:600}
     <button class="tab" data-tab="cooking"><span class="em">🍳</span>Culinaria</button>
     <button class="tab" data-tab="clothing"><span class="em">👕</span>Roupas</button>
     <button class="tab" data-tab="currency"><span class="em">$</span>Moedas</button>
-    <button class="tab" data-tab="crypto"><span class="em">₿</span>Cripto</button>
+    <button class="tab" data-tab="crypto"><span class="em">🪙</span>Cripto</button>
     <button class="tab" data-tab="interest"><span class="em">%</span>Juros</button>
     <button class="tab" data-tab="savings"><span class="em">🐷</span>Poupanca</button>
     <button class="tab" data-tab="fgts"><span class="em">🏦</span>FGTS</button>
@@ -545,7 +545,14 @@ function formatNum(n){
   else digits = 6;
   return n.toLocaleString('pt-BR', {maximumFractionDigits:digits, minimumFractionDigits:0});
 }
-function formatBRL(n){ if(!isFinite(n)) return '—'; return n.toLocaleString('pt-BR', {style:'currency', currency:'BRL', minimumFractionDigits:2, maximumFractionDigits:2}); }
+function formatBRL(n){
+  if(!isFinite(n)) return '—';
+  const abs = Math.abs(n);
+  let digits = 2;
+  if (abs > 0 && abs < 0.01) digits = 6;
+  else if (abs > 0 && abs < 1) digits = 4;
+  return n.toLocaleString('pt-BR', {style:'currency', currency:'BRL', minimumFractionDigits:digits, maximumFractionDigits:digits});
+}
 function formatPct(n){ return n.toLocaleString('pt-BR', {maximumFractionDigits:2, minimumFractionDigits:2}) + '%'; }
 
 /* ===== JUROS COMPOSTOS ===== */
