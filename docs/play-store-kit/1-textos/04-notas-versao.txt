@@ -1,0 +1,5 @@
+Correcoes e melhorias:
+- Ajustes na descricao da loja em conformidade com a politica da Google Play
+- Correcoes de estabilidade
+- Melhorias na conversao de PDF e imagens
+- Atualizacao de cotacoes em cache

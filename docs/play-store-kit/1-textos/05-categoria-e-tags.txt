@@ -1,0 +1,11 @@
+CATEGORIA PRINCIPAL:  Ferramentas
+CATEGORIA SECUNDARIA: Financas
+
+CLASSIFICACAO ETARIA: Livre (3+)
+
+TAGS DE PESQUISA (max 5):
+1. conversor de medidas
+2. calculadora financeira
+3. calculadora fgts
+4. conversor de moedas
+5. juros compostos

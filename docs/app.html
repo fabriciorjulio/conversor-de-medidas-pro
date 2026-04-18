@@ -774,13 +774,15 @@ tabs.forEach(t=>t.addEventListener('click', ()=>{
   const id = t.dataset.tab;
   tabs.forEach(x=>x.classList.toggle('active', x===t));
   panels.forEach(p=>p.classList.toggle('active', p.id==='panel-'+id));
+  t.scrollIntoView({block:'nearest', inline:'center', behavior:'auto'});
   if(id==='currency' && !currencyLoaded){ currencyLoaded=true; loadCurrency(); }
   if(id==='crypto' && !cryptoLoaded){ cryptoLoaded=true; loadCrypto(); }
   try { localStorage.setItem('ct_tab', id); } catch(e){}
 }));
 try {
-  const savedTab = localStorage.getItem('ct_tab');
-  if (savedTab) { const btn = document.querySelector(`.tab[data-tab="${savedTab}"]`); if(btn) btn.click(); }
+  const urlTab = new URLSearchParams(location.search).get('tab');
+  const wanted = urlTab || localStorage.getItem('ct_tab');
+  if (wanted) { const btn = document.querySelector(`.tab[data-tab="${wanted}"]`); if(btn) btn.click(); }
 } catch(e){}
 
 /* ===== THEME TOGGLE ===== */

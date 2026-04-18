@@ -1,0 +1,63 @@
+Converte Tudo reune conversores de medidas e calculadoras financeiras
+brasileiras em um unico aplicativo. Funciona offline para conversoes de
+unidades e simulacoes; conexao com a internet e necessaria apenas para
+cotacoes ao vivo.
+
+CONVERSORES DE MEDIDAS
+
+- Comprimento: metro, centimetro, quilometro, polegada, pe, jarda, milha
+- Peso: quilograma, grama, libra, onca, tonelada
+- Volume: litro, mililitro, galao, metro cubico, xicara
+- Temperatura: Celsius, Fahrenheit, Kelvin
+- Area: metro quadrado, hectare, quilometro quadrado, acre
+- Velocidade: km/h, m/s, milha por hora, no
+- Tempo: segundo, minuto, hora, dia, semana, mes, ano
+- Dados: byte, kilobyte, megabyte, gigabyte, terabyte
+- Culinaria: xicara, colher de sopa, colher de cha
+- Tamanhos de roupa: tabela BR, US e EU
+
+CALCULADORAS FINANCEIRAS
+
+- Juros compostos com taxa configuravel e modo percentual do CDI
+- Simulador de poupanca com regra SELIC
+- Calculo de FGTS (deposito de 8%, TR + 3% ao ano)
+- Conversor de moedas (Real, Dolar, Euro, Libra, Iene e outras)
+- Conversor de criptomoedas (Bitcoin, Ethereum, BNB, Solana e outras)
+
+FERRAMENTAS ADICIONAIS
+
+- Consulta FIPE para carros, motos e caminhoes
+- Conversao de texto, imagens e DOCX para PDF
+- Conversao entre formatos de imagem (PNG, JPG, BMP, GIF, TIFF)
+- Conversor de commodities agricolas (soja, milho, trigo, cafe,
+  arroz, algodao, acucar, feijao) em kg e saca
+
+RECURSOS
+
+- Conversoes de unidades e calculadoras funcionam sem internet
+- Cotacoes ao vivo sao atualizadas quando ha conexao e ficam em cache
+- Historico das ultimas conversoes
+- Tema claro e escuro
+- Compartilhamento de resultados
+- Interface em portugues do Brasil com virgula como separador decimal
+
+PRIVACIDADE
+
+Nao coletamos dados pessoais. O historico e as preferencias ficam
+armazenados apenas no seu dispositivo. A politica de privacidade completa
+esta disponivel dentro do app e no link oficial.
+
+PUBLICIDADE
+
+O aplicativo exibe anuncios do Google AdMob. Voce pode gerenciar as
+preferencias de publicidade nas configuracoes do Android.
+
+AVISO
+
+Os calculos financeiros sao apresentados para fins informativos e
+educacionais e nao constituem recomendacao de investimento. Consulte um
+profissional qualificado antes de tomar decisoes financeiras.
+
+SUPORTE
+
+Email: fabriciorjulio@gmail.com

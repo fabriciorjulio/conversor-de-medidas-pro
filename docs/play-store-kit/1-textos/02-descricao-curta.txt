@@ -1,0 +1,1 @@
+Conversor de medidas e calculadoras financeiras brasileiras. Modo offline.
